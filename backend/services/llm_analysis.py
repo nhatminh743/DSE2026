@@ -73,6 +73,32 @@ async def analyze_model_results(results: dict[str, Any]) -> dict[str, Any]:
     return {"model": settings.GEMINI_MODEL, "analysis": await _generate_content(prompt)}
 
 
+async def explain_model_report(model_type: str, results: dict[str, Any]) -> dict[str, Any]:
+    model_output = (results.get("models") or {}).get(model_type)
+    if not model_output:
+        raise ValueError(f"Model report for {model_type!r} is unavailable")
+    metrics = model_output.get("metrics") or {}
+    report_data = {
+        "model_type": model_type,
+        "selection_score": model_output.get("score"),
+        "current_mode_report": metrics.get("current_mode"),
+        "fallback_mode_report": metrics.get("fallback_modes"),
+    }
+    prompt = (
+        "You are explaining a transport classification model report to a policymaker. "
+        "Interpret the supplied precision, recall, F1-score, and support values for both "
+        "current-mode and fallback-mode prediction. Identify strong and weak classes, explain "
+        "the practical meaning of the trade-offs, and give one validation recommendation. "
+        "Use plain language, no more than 220 words, and do not invent values or imply causality.\n\n"
+        + json.dumps(report_data, ensure_ascii=False)
+    )
+    return {
+        "model": settings.GEMINI_MODEL,
+        "chart_id": "model_report",
+        "analysis": await _generate_content(prompt),
+    }
+
+
 CHART_CONTEXT = {
     "feature_current": ("Current-mode feature importance", ("feature_importance", "current_mode")),
     "feature_car": ("Car fallback feature importance", ("feature_importance", "fallback_modes", "alt_car")),

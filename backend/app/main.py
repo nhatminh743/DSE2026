@@ -64,7 +64,7 @@ from services.model_training import (
     run_training_job,
     write_json,
 )
-from services.llm_analysis import analyze_model_results, explain_model_chart
+from services.llm_analysis import analyze_model_results, explain_model_chart, explain_model_report
 from services.model_bundle import simulate_uploaded_bundle
 from services.firebase_service import (
     create_survey_response,
@@ -823,17 +823,41 @@ def download_model_bundle(run_id: str):
     return FileResponse(path=path, filename=f"hanoi-models-{run_id}.zip", media_type="application/zip")
 
 
+STATIC_MODEL_RUN_ID = "static-three-model-showcase"
+
+
+def _read_static_model_file(*parts: str) -> dict:
+    project_directory = Path(__file__).resolve().parents[2]
+    candidates = [
+        project_directory / "static_showcase" / "data" / "model-lab" / Path(*parts),
+        project_directory / "frontend_dist" / "data" / "model-lab" / Path(*parts),
+    ]
+    for path in candidates:
+        if path.is_file():
+            return read_json(path)
+    raise FileNotFoundError("Static Model Lab data is unavailable in this deployment")
+
+
 @app.post("/api/model-analysis/llm")
 async def analyze_model_with_llm(run_id: str | None = Form(None)):
-    if run_id:
+    if run_id == STATIC_MODEL_RUN_ID:
+        try:
+            results = _read_static_model_file("results.json")
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail=str(exc)) from exc
+    elif run_id:
         solution_path = get_run_directory(run_id) / "solution.json"
+        if not solution_path.exists():
+            raise HTTPException(status_code=404, detail="Model solution not found")
+        results = read_json(solution_path)
     else:
         solution_path = Path(settings.MODEL_WEIGHT_DIR) / "solution.json"
-    if not solution_path.exists():
-        raise HTTPException(status_code=404, detail="Model solution not found")
+        if not solution_path.exists():
+            raise HTTPException(status_code=404, detail="Model solution not found")
+        results = read_json(solution_path)
     try:
-        analysis = await analyze_model_results(read_json(solution_path))
-        if run_id:
+        analysis = await analyze_model_results(results)
+        if run_id and run_id != STATIC_MODEL_RUN_ID:
             write_json(get_run_directory(run_id) / "llm_analysis.json", analysis)
         return analysis
     except ValueError as exc:
@@ -849,11 +873,30 @@ async def explain_chart_with_llm(
     model_type: str | None = Form(None),
 ):
     try:
-        insights = (
-            load_model_insights(get_run_directory(run_id), model_type)
-            if run_id and model_type
-            else load_model_insights()
-        )
+        if chart_id == "model_report":
+            if not model_type:
+                raise ValueError("Choose a model before explaining its report")
+            if model_type not in SUPPORTED_MODEL_TYPES:
+                raise ValueError("Unsupported model type")
+            if run_id == STATIC_MODEL_RUN_ID:
+                results = _read_static_model_file("results.json")
+            elif run_id:
+                results = read_json(get_run_directory(run_id) / "solution.json")
+            else:
+                results = read_json(Path(settings.MODEL_WEIGHT_DIR) / "solution.json")
+            return await explain_model_report(model_type, results)
+        if run_id == STATIC_MODEL_RUN_ID:
+            if not model_type:
+                raise ValueError("Choose a model before explaining its chart")
+            if model_type not in SUPPORTED_MODEL_TYPES:
+                raise ValueError("Unsupported model type")
+            insights = _read_static_model_file("models", model_type, "insights.json")
+        else:
+            insights = (
+                load_model_insights(get_run_directory(run_id), model_type)
+                if run_id and model_type
+                else load_model_insights()
+            )
         return await explain_model_chart(chart_id, insights)
     except FileNotFoundError as exc:
         raise HTTPException(status_code=404, detail=str(exc))

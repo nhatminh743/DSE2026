@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { API_BASE } from '../staticConfig';
 
 
-export default function ChartExplainButton({ chartId, runId, modelType }) {
+export default function ChartExplainButton({ chartId, runId, modelType, label = '' }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [analysis, setAnalysis] = useState('');
@@ -33,8 +33,11 @@ export default function ChartExplainButton({ chartId, runId, modelType }) {
     }
   };
 
+  const isReport = chartId === 'model_report';
+  const actionLabel = isReport ? 'Ask Gemini about this model report' : 'Ask Gemini to explain this chart';
+
   return <>
-    <button type="button" onClick={explain} title="Ask Gemini to explain this chart" aria-label="Ask Gemini to explain this chart" className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#dadce0] bg-white text-sm font-bold text-[#1a73e8] hover:bg-[#e8f0fe]">?</button>
-    {open && <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/40 p-4" role="dialog" aria-modal="true" aria-label="Gemini chart explanation"><div className="max-h-[80vh] w-full max-w-2xl overflow-auto rounded-2xl bg-white p-6 shadow-xl"><div className="flex items-center justify-between gap-4"><h3 className="text-lg font-semibold">Gemini chart explanation</h3><button type="button" onClick={() => setOpen(false)} className="rounded-lg px-3 py-1 text-xl text-gray-500 hover:bg-gray-100" aria-label="Close explanation">×</button></div>{loading && <p className="mt-4 text-sm text-gray-500">Analyzing chart data with Gemini 3.1 Flash-Lite...</p>}{error && <p className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}{analysis && <div className="mt-4 whitespace-pre-wrap text-sm leading-6 text-gray-700">{analysis}</div>}</div></div>}
+    <button type="button" onClick={explain} title={actionLabel} aria-label={actionLabel} className={label ? 'shrink-0 rounded-lg border border-[#1a73e8] bg-white px-3 py-1.5 text-xs font-medium text-[#1a73e8] hover:bg-[#e8f0fe]' : 'flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#dadce0] bg-white text-sm font-bold text-[#1a73e8] hover:bg-[#e8f0fe]'}>{label || '?'}</button>
+    {open && <div className="fixed inset-0 z-[2000] flex items-center justify-center bg-black/40 p-4" role="dialog" aria-modal="true" aria-label={isReport ? 'Gemini model report explanation' : 'Gemini chart explanation'}><div className="max-h-[80vh] w-full max-w-2xl overflow-auto rounded-2xl bg-white p-6 shadow-xl"><div className="flex items-center justify-between gap-4"><h3 className="text-lg font-semibold">{isReport ? 'Gemini model report explanation' : 'Gemini chart explanation'}</h3><button type="button" onClick={() => setOpen(false)} className="rounded-lg px-3 py-1 text-xl text-gray-500 hover:bg-gray-100" aria-label="Close explanation">×</button></div>{loading && <p className="mt-4 text-sm text-gray-500">Analyzing the saved data with Gemini 3.1 Flash-Lite...</p>}{error && <p className="mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">{error}</p>}{analysis && <div className="mt-4 whitespace-pre-wrap text-sm leading-6 text-gray-700">{analysis}</div>}</div></div>}
   </>;
 }

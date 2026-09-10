@@ -2,6 +2,8 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import { CircleMarker, MapContainer, Polyline, Popup, TileLayer } from 'react-leaflet';
 import { API_BASE } from '../staticConfig';
 
+const GITHUB_URL = 'https://github.com/nhatminh743/DSE2026';
+
 export default function KMedianTab() {
   const [modelData, setModelData] = useState(null);
   const [k, setK] = useState(20);
@@ -69,6 +71,7 @@ export default function KMedianTab() {
 
   return <div className="grid h-full min-h-0 grid-cols-1 lg:grid-cols-[360px_minmax(0,1fr)]">
     <aside className="overflow-y-auto border-r bg-white p-5"><h1 className="text-xl font-semibold">K-Median Station Model</h1><p className="mb-5 mt-2 text-sm text-gray-500">Run exact station-placement optimization or inspect the saved default solution.</p>
+      <div className="mb-5 rounded-xl border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900"><span className="font-semibold">K-median optimization may take a long time online.</span> For reliable full-size runs, follow the <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="font-semibold text-[#1a73e8] underline">GitHub repository</a> and run it locally.</div>
       <label className="mb-3 block text-sm">Number of stations<input type="number" min="1" max="5000" value={k} onChange={(event) => setK(Number(event.target.value) || 1)} className="mt-1 w-full rounded-lg border p-2.5" /></label>
       <label className="mb-4 block text-sm">Sample percentage<input type="number" min="1" max="100" value={samplePercent} onChange={(event) => setSamplePercent(Number(event.target.value) || 1)} className="mt-1 w-full rounded-lg border p-2.5" /></label>
       <div className="flex gap-2"><button type="button" onClick={start} disabled={loading || running} className="rounded-lg bg-[#1a73e8] px-4 py-2.5 text-sm font-medium text-white disabled:opacity-50">{running ? 'Solving...' : 'Run solver'}</button>{running && <button type="button" onClick={() => stop().catch((err) => setError(err.message))} className="rounded-lg border border-red-300 px-4 py-2.5 text-sm text-red-700">Stop</button>}</div>
