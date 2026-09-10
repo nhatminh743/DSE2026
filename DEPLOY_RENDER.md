@@ -62,7 +62,7 @@ JSON files, generated model weights, or training bundles.
    a status of ok.
 7. Open the service root URL to use the React application.
 
-Dockerfile.render builds React first and copies frontend/dist into FastAPI.
+Dockerfile builds React first and copies frontend/dist into FastAPI.
 
 ## 4. Validate
 
