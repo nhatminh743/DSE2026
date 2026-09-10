@@ -1,5 +1,4 @@
 .env
-datasets/
 artifacts/model_runs/
 backend/artifacts/*.joblib
 backend/weights/model_lab/**/*.joblib
