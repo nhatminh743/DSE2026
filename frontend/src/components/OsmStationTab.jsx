@@ -42,7 +42,7 @@ export default function OsmStationTab() {
     async function loadMap() {
       try {
         setLoading(true);
-        const response = await fetch(`${API_BASE}/api/analytics/district-policy-map`, { signal: controller.signal });
+        const response = await fetch(`${API_BASE}/api/analytics/district-boundaries`, { signal: controller.signal });
         const payload = await response.json().catch(() => null);
         if (!response.ok) throw new Error(payload?.detail ?? 'Could not load district map');
         setGeoJson(payload);
