@@ -1,0 +1,10 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Survey and baseline access goes through the verified FastAPI service.
+    // Firebase Admin SDK calls bypass these client rules.
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

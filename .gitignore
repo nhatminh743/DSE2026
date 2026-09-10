@@ -1,0 +1,16 @@
+.env
+datasets/
+artifacts/model_runs/
+backend/artifacts/*.joblib
+backend/weights/model_lab/**/*.joblib
+backend/weights/model_lab/**/model_artifacts.zip
+backend/weights/kmedian/**/weights.json
+__pycache__/
+.pytest_cache/
+frontend/node_modules/
+frontend/dist/
+backend/secrets/
+*-service-account*.json
+.firebase/
+frontend/.env
+analysis/

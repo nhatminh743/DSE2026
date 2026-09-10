@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: dse2026
+    runtime: docker
+    plan: free
+    region: singapore
+    dockerfilePath: ./Dockerfile.render
+    healthCheckPath: /api/health
+    envVars:
+      - key: GOOGLE_MAPS_API_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: GEMINI_MODEL
+        value: gemini-3.1-flash-lite
+      - key: FIREBASE_PROJECT_ID
+        value: hanoi-policy-makers
+      - key: FIREBASE_STORAGE_BUCKET
+        value: hanoi-policy-makers.firebasestorage.app
+      - key: FIREBASE_SERVICE_ACCOUNT_JSON
+        sync: false
+      - key: CORS_ALLOW_ORIGINS
+        value: "*"

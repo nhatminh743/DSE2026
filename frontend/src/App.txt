@@ -1,0 +1,95 @@
+import { useState } from 'react';
+import PolicyDashboard from './components/PolicyDashboard';
+import OsmStationTab from './components/OsmStationTab';
+import EdaTab from './components/EdaTab';
+import CitizenSurveyTab from './components/CitizenSurveyTab';
+import KMedianTab from './components/KMedianTab';
+import ModelLabTab from './components/ModelLabTab';
+import { RouteCalculatorTab } from './components/RouteCalculatorTab';
+import './App.css';
+
+const TABS = [
+  {
+    id: 'policy',
+    label: 'Policy Dashboard',
+  },
+  {
+    id: 'osm',
+    label: 'District Map',
+  },
+  {
+    id: 'eda',
+    label: 'EDA & Visualisation',
+  },
+  {
+    id: 'models',
+    label: 'Model Lab',
+  },
+  {
+    id: 'survey',
+    label: 'Citizen Survey',
+  },
+  {
+    id: 'kmedian',
+    label: 'K-Median Model',
+  },
+  {
+    id: 'route',
+    label: 'Route Calculator',
+  },
+];
+
+export default function App() {
+  const [activeTab, setActiveTab] = useState('policy');
+
+  return (
+    <div className="h-screen w-full bg-[#f1f3f4] text-[#202124]">
+      <header className="h-14 bg-white border-b border-[#dadce0] flex items-center px-5 gap-6 shadow-sm">
+        <div className="font-semibold text-lg text-[#1a73e8]">
+          Hanoi Mobility Policy Lab
+        </div>
+
+        <nav className="flex items-center gap-1">
+          {TABS.map((tab) => (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                activeTab === tab.id
+                  ? 'bg-[#e8f0fe] text-[#1a73e8]'
+                  : 'text-[#5f6368] hover:bg-[#f1f3f4]'
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+      </header>
+
+      <main className="h-[calc(100vh-56px)] overflow-hidden">
+        {activeTab === 'policy' && <PolicyDashboard />}
+        {activeTab === 'osm' && <OsmStationTab />}
+        {activeTab === 'eda' && <EdaTab />}
+        {activeTab === 'models' && <ModelLabTab />}
+        {activeTab === 'survey' && <CitizenSurveyTab />}
+        {activeTab === 'kmedian' && <KMedianTab />}
+        {activeTab === 'route' && <RouteCalculatorTab />}
+      </main>
+    </div>
+  );
+}
+
+
+main.jsx
+
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)

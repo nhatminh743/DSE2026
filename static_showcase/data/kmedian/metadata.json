@@ -1,0 +1,12 @@
+{
+  "run_id": "745b35c9870545daa70c375ca79e8674",
+  "created_at": "2026-09-08T14:38:28.976041+00:00",
+  "requested_k": 20,
+  "selected_station_count": 20,
+  "demand_node_count": 161,
+  "eligible_people": 8040,
+  "sample_percent": 2.0,
+  "objective_weighted_km": 292.079,
+  "solver_status": "Optimal",
+  "solver_method": "exact_ilp"
+}

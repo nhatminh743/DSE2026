@@ -1,0 +1,71 @@
+{
+  "row_count": 26106,
+  "mode_counts": [
+    {
+      "mode": "moto",
+      "count": 14988
+    },
+    {
+      "mode": "car",
+      "count": 7019
+    },
+    {
+      "mode": "ebike",
+      "count": 1493
+    },
+    {
+      "mode": "bike",
+      "count": 1281
+    },
+    {
+      "mode": "walk",
+      "count": 545
+    },
+    {
+      "mode": "bus",
+      "count": 427
+    },
+    {
+      "mode": "taxi",
+      "count": 341
+    },
+    {
+      "mode": "tram",
+      "count": 12
+    }
+  ],
+  "purpose_counts": [
+    {
+      "purpose": "work",
+      "count": 15145
+    },
+    {
+      "purpose": "education",
+      "count": 4494
+    },
+    {
+      "purpose": "visit",
+      "count": 3176
+    },
+    {
+      "purpose": "shopping",
+      "count": 1922
+    },
+    {
+      "purpose": "leisure",
+      "count": 934
+    },
+    {
+      "purpose": "caring",
+      "count": 435
+    }
+  ],
+  "affected_summary": {
+    "current_car": 7019,
+    "current_moto": 14988,
+    "total_car_users": 7019,
+    "total_moto_users": 14988,
+    "total_affected": 22007,
+    "total_respondents": 26106
+  }
+}

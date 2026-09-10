@@ -1,0 +1,28 @@
+{
+  "run_id": "d386f1918d57422b913141a9608256bd",
+  "state": "completed",
+  "progress": 100,
+  "message": "Training completed and weights saved",
+  "source_type": "database",
+  "source_path": null,
+  "parameters": {
+    "test_size": 0.2,
+    "n_estimators": 100,
+    "model_types": [
+      "decision_tree"
+    ]
+  },
+  "created_at": "2026-09-10T10:20:03.282775+00:00",
+  "updated_at": "2026-09-10T10:20:36.299610+00:00",
+  "pid": 10040,
+  "started_at": "2026-09-10T10:20:06.043728+00:00",
+  "raw_row_count": 26106,
+  "requested_source": "database",
+  "actual_source": "database",
+  "active_model": null,
+  "completed_at": "2026-09-10T10:20:36.290849+00:00",
+  "promoted_to_default": true,
+  "downloads": {
+    "bundle": "/api/model-runs/d386f1918d57422b913141a9608256bd/download"
+  }
+}

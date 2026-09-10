@@ -1,0 +1,900 @@
+{
+  "source": "baseline.csv",
+  "profile": {
+    "summary": {
+      "rows": 26106,
+      "columns": 56,
+      "numeric_columns": 17,
+      "categorical_columns": 39,
+      "missing_cells": 178967,
+      "missing_percentage": 12.24
+    },
+    "missing_by_column": [
+      {
+        "column": "freq_bus",
+        "percentage": 90.91
+      },
+      {
+        "column": "freq_taxi",
+        "percentage": 87.7
+      },
+      {
+        "column": "freq_ebike",
+        "percentage": 81.22
+      },
+      {
+        "column": "freq_bike",
+        "percentage": 78.19
+      },
+      {
+        "column": "freq_car",
+        "percentage": 57.48
+      },
+      {
+        "column": "leis_acc",
+        "percentage": 50.04
+      },
+      {
+        "column": "school_acc",
+        "percentage": 49.87
+      },
+      {
+        "column": "bank_acc",
+        "percentage": 48.91
+      },
+      {
+        "column": "hosp_acc",
+        "percentage": 48.72
+      },
+      {
+        "column": "market_acc",
+        "percentage": 48.38
+      },
+      {
+        "column": "freq_motob",
+        "percentage": 44.1
+      },
+      {
+        "column": "origlon",
+        "percentage": 0.0
+      },
+      {
+        "column": "destlat",
+        "percentage": 0.0
+      },
+      {
+        "column": "destlon",
+        "percentage": 0.0
+      },
+      {
+        "column": "vehic",
+        "percentage": 0.0
+      }
+    ],
+    "numeric_distributions": [
+      {
+        "column": "rowid",
+        "values": [
+          {
+            "range": "1–2.6e+03",
+            "count": 2611
+          },
+          {
+            "range": "2.6e+03–5.2e+03",
+            "count": 2610
+          },
+          {
+            "range": "5.2e+03–7.8e+03",
+            "count": 2611
+          },
+          {
+            "range": "7.8e+03–1e+04",
+            "count": 2610
+          },
+          {
+            "range": "1e+04–1.3e+04",
+            "count": 2611
+          },
+          {
+            "range": "1.3e+04–1.6e+04",
+            "count": 2610
+          },
+          {
+            "range": "1.6e+04–1.8e+04",
+            "count": 2611
+          },
+          {
+            "range": "1.8e+04–2.1e+04",
+            "count": 2610
+          },
+          {
+            "range": "2.1e+04–2.3e+04",
+            "count": 2611
+          },
+          {
+            "range": "2.3e+04–2.6e+04",
+            "count": 2611
+          }
+        ]
+      },
+      {
+        "column": "id",
+        "values": [
+          {
+            "range": "7.7e+07–8.4e+07",
+            "count": 670
+          },
+          {
+            "range": "8.4e+07–9.1e+07",
+            "count": 728
+          },
+          {
+            "range": "9.1e+07–9.7e+07",
+            "count": 13
+          },
+          {
+            "range": "9.7e+07–1e+08",
+            "count": 0
+          },
+          {
+            "range": "1e+08–1.1e+08",
+            "count": 0
+          },
+          {
+            "range": "1.1e+08–1.2e+08",
+            "count": 0
+          },
+          {
+            "range": "1.2e+08–1.2e+08",
+            "count": 0
+          },
+          {
+            "range": "1.2e+08–1.3e+08",
+            "count": 2569
+          },
+          {
+            "range": "1.3e+08–1.4e+08",
+            "count": 9741
+          },
+          {
+            "range": "1.4e+08–1.4e+08",
+            "count": 12385
+          }
+        ]
+      },
+      {
+        "column": "origlat",
+        "values": [
+          {
+            "range": "-42–-34",
+            "count": 1
+          },
+          {
+            "range": "-34–-26",
+            "count": 0
+          },
+          {
+            "range": "-26–-17",
+            "count": 0
+          },
+          {
+            "range": "-17–-9.3",
+            "count": 0
+          },
+          {
+            "range": "-9.3–-1.1",
+            "count": 0
+          },
+          {
+            "range": "-1.1–7.1",
+            "count": 0
+          },
+          {
+            "range": "7.1–15",
+            "count": 26
+          },
+          {
+            "range": "15–23",
+            "count": 26078
+          },
+          {
+            "range": "23–32",
+            "count": 0
+          },
+          {
+            "range": "32–40",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "column": "origlon",
+        "values": [
+          {
+            "range": "93–98",
+            "count": 1
+          },
+          {
+            "range": "98–1e+02",
+            "count": 0
+          },
+          {
+            "range": "1e+02–1.1e+02",
+            "count": 26104
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 0
+          },
+          {
+            "range": "1.1e+02–1.2e+02",
+            "count": 0
+          },
+          {
+            "range": "1.2e+02–1.3e+02",
+            "count": 0
+          },
+          {
+            "range": "1.3e+02–1.3e+02",
+            "count": 0
+          },
+          {
+            "range": "1.3e+02–1.4e+02",
+            "count": 0
+          },
+          {
+            "range": "1.4e+02–1.4e+02",
+            "count": 0
+          },
+          {
+            "range": "1.4e+02–1.5e+02",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "column": "destlat",
+        "values": [
+          {
+            "range": "10–12",
+            "count": 24
+          },
+          {
+            "range": "12–14",
+            "count": 5
+          },
+          {
+            "range": "14–16",
+            "count": 3
+          },
+          {
+            "range": "16–18",
+            "count": 14
+          },
+          {
+            "range": "18–21",
+            "count": 40
+          },
+          {
+            "range": "21–23",
+            "count": 26019
+          },
+          {
+            "range": "23–25",
+            "count": 0
+          },
+          {
+            "range": "25–27",
+            "count": 0
+          },
+          {
+            "range": "27–29",
+            "count": 0
+          },
+          {
+            "range": "29–31",
+            "count": 1
+          }
+        ]
+      },
+      {
+        "column": "destlon",
+        "values": [
+          {
+            "range": "1e+02–1.1e+02",
+            "count": 4
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 26027
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 61
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 11
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 2
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 0
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 0
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 0
+          },
+          {
+            "range": "1.1e+02–1.1e+02",
+            "count": 0
+          },
+          {
+            "range": "1.1e+02–1.2e+02",
+            "count": 1
+          }
+        ]
+      }
+    ],
+    "categorical_distributions": [
+      {
+        "column": "age",
+        "values": [
+          {
+            "category": "26_35",
+            "count": 9756,
+            "percentage": 37.37
+          },
+          {
+            "category": "36_55",
+            "count": 7085,
+            "percentage": 27.14
+          },
+          {
+            "category": "18_25",
+            "count": 7077,
+            "percentage": 27.11
+          },
+          {
+            "category": "56_75",
+            "count": 1501,
+            "percentage": 5.75
+          },
+          {
+            "category": "less_18",
+            "count": 493,
+            "percentage": 1.89
+          },
+          {
+            "category": "more_75",
+            "count": 194,
+            "percentage": 0.74
+          }
+        ]
+      },
+      {
+        "column": "occup",
+        "values": [
+          {
+            "category": "state",
+            "count": 8483,
+            "percentage": 32.49
+          },
+          {
+            "category": "private",
+            "count": 6716,
+            "percentage": 25.73
+          },
+          {
+            "category": "fdi",
+            "count": 6099,
+            "percentage": 23.36
+          },
+          {
+            "category": "student",
+            "count": 3755,
+            "percentage": 14.38
+          },
+          {
+            "category": "retired",
+            "count": 1053,
+            "percentage": 4.03
+          }
+        ]
+      },
+      {
+        "column": "gender",
+        "values": [
+          {
+            "category": "male",
+            "count": 14063,
+            "percentage": 53.87
+          },
+          {
+            "category": "female",
+            "count": 12043,
+            "percentage": 46.13
+          }
+        ]
+      },
+      {
+        "column": "purp",
+        "values": [
+          {
+            "category": "work",
+            "count": 15145,
+            "percentage": 58.01
+          },
+          {
+            "category": "education",
+            "count": 4494,
+            "percentage": 17.21
+          },
+          {
+            "category": "visit",
+            "count": 3176,
+            "percentage": 12.17
+          },
+          {
+            "category": "shopping",
+            "count": 1922,
+            "percentage": 7.36
+          },
+          {
+            "category": "leisure",
+            "count": 934,
+            "percentage": 3.58
+          },
+          {
+            "category": "caring",
+            "count": 435,
+            "percentage": 1.67
+          }
+        ]
+      },
+      {
+        "column": "vehic",
+        "values": [
+          {
+            "category": "moto",
+            "count": 14988,
+            "percentage": 57.41
+          },
+          {
+            "category": "car",
+            "count": 7019,
+            "percentage": 26.89
+          },
+          {
+            "category": "ebike",
+            "count": 1493,
+            "percentage": 5.72
+          },
+          {
+            "category": "bike",
+            "count": 1281,
+            "percentage": 4.91
+          },
+          {
+            "category": "walk",
+            "count": 545,
+            "percentage": 2.09
+          },
+          {
+            "category": "bus",
+            "count": 427,
+            "percentage": 1.64
+          },
+          {
+            "category": "taxi",
+            "count": 341,
+            "percentage": 1.31
+          },
+          {
+            "category": "tram",
+            "count": 12,
+            "percentage": 0.05
+          }
+        ]
+      },
+      {
+        "column": "freqpweek",
+        "values": [
+          {
+            "category": "4_7",
+            "count": 15157,
+            "percentage": 58.06
+          },
+          {
+            "category": "1_3",
+            "count": 4441,
+            "percentage": 17.01
+          },
+          {
+            "category": "8_10",
+            "count": 3027,
+            "percentage": 11.6
+          },
+          {
+            "category": "17_20",
+            "count": 1479,
+            "percentage": 5.67
+          },
+          {
+            "category": "11_13",
+            "count": 1412,
+            "percentage": 5.41
+          },
+          {
+            "category": "14_16",
+            "count": 485,
+            "percentage": 1.86
+          },
+          {
+            "category": "more_20",
+            "count": 105,
+            "percentage": 0.4
+          }
+        ]
+      }
+    ],
+    "correlations": [
+      {
+        "left": "origlat",
+        "right": "OD_dist",
+        "correlation": -0.5765
+      },
+      {
+        "left": "destlat",
+        "right": "destlon",
+        "correlation": -0.4052
+      },
+      {
+        "left": "destlat",
+        "right": "OD_dist",
+        "correlation": -0.3426
+      },
+      {
+        "left": "origlat",
+        "right": "origlon",
+        "correlation": 0.3407
+      },
+      {
+        "left": "alt_bike",
+        "right": "alt_walk",
+        "correlation": 0.2744
+      },
+      {
+        "left": "id",
+        "right": "alt_car",
+        "correlation": 0.2522
+      },
+      {
+        "left": "origlat",
+        "right": "destlat",
+        "correlation": 0.2514
+      },
+      {
+        "left": "rowid",
+        "right": "id",
+        "correlation": 0.2486
+      },
+      {
+        "left": "origlon",
+        "right": "OD_dist",
+        "correlation": 0.2319
+      },
+      {
+        "left": "alt_bus",
+        "right": "alt_taxi",
+        "correlation": 0.2113
+      },
+      {
+        "left": "alt_car",
+        "right": "alt_walk",
+        "correlation": 0.2009
+      },
+      {
+        "left": "alt_car",
+        "right": "alt_taxi",
+        "correlation": 0.1907
+      }
+    ]
+  },
+  "policy_eda": {
+    "source": "baseline.csv",
+    "summary": {
+      "respondents": 26106,
+      "motorbike_users": 14988,
+      "motorbike_share": 57.41,
+      "valid_od_distance_rows": 25969,
+      "valid_pt_distance_rows": 26083,
+      "average_alternatives": 2.36,
+      "multiple_alternative_share": 58.48,
+      "car_considerers_with_sustainable": 79.4
+    },
+    "mode_share": [
+      {
+        "mode": "Motorbike",
+        "percentage": 57.41
+      },
+      {
+        "mode": "Car",
+        "percentage": 26.89
+      },
+      {
+        "mode": "E-bike",
+        "percentage": 5.72
+      },
+      {
+        "mode": "Bike",
+        "percentage": 4.91
+      },
+      {
+        "mode": "Walk",
+        "percentage": 2.09
+      },
+      {
+        "mode": "Bus",
+        "percentage": 1.64
+      },
+      {
+        "mode": "Taxi",
+        "percentage": 1.31
+      },
+      {
+        "mode": "Tram",
+        "percentage": 0.05
+      }
+    ],
+    "alternative_share": [
+      {
+        "alternative": "Car",
+        "percentage": 48.22
+      },
+      {
+        "alternative": "Bus",
+        "percentage": 40.44
+      },
+      {
+        "alternative": "Taxi",
+        "percentage": 35.95
+      },
+      {
+        "alternative": "E-bike",
+        "percentage": 29.72
+      },
+      {
+        "alternative": "Bike",
+        "percentage": 29.27
+      },
+      {
+        "alternative": "Light rail",
+        "percentage": 27.31
+      },
+      {
+        "alternative": "Walk",
+        "percentage": 24.88
+      }
+    ],
+    "consideration_future": [
+      {
+        "mode": "Car",
+        "considered": 48.22,
+        "future_intention": 33.58
+      },
+      {
+        "mode": "E-bike",
+        "considered": 29.72,
+        "future_intention": 4.47
+      },
+      {
+        "mode": "Bike",
+        "considered": 29.27,
+        "future_intention": 2.37
+      }
+    ],
+    "transition_segments": [
+      {
+        "segment": "Sustainable only",
+        "percentage": 49.17
+      },
+      {
+        "segment": "Car + Sustainable",
+        "percentage": 38.28
+      },
+      {
+        "segment": "Car only",
+        "percentage": 9.93
+      },
+      {
+        "segment": "Neither",
+        "percentage": 2.61
+      }
+    ],
+    "alternative_count": [
+      {
+        "count": 1,
+        "percentage": 41.52
+      },
+      {
+        "count": 2,
+        "percentage": 13.58
+      },
+      {
+        "count": 3,
+        "percentage": 21.64
+      },
+      {
+        "count": 4,
+        "percentage": 14.99
+      },
+      {
+        "count": 5,
+        "percentage": 7.64
+      },
+      {
+        "count": 6,
+        "percentage": 0.4
+      },
+      {
+        "count": 7,
+        "percentage": 0.23
+      }
+    ],
+    "car_by_distance": [
+      {
+        "distance": "<=3 km",
+        "car": 34.1
+      },
+      {
+        "distance": "3-5 km",
+        "car": 43.14
+      },
+      {
+        "distance": "5-10 km",
+        "car": 64.14
+      },
+      {
+        "distance": "10-15 km",
+        "car": 78.6
+      },
+      {
+        "distance": ">15 km",
+        "car": 69.86
+      }
+    ],
+    "alternatives_by_distance": [
+      {
+        "distance": "<=3 km",
+        "car": 34.1,
+        "bus": 37.08,
+        "ebike": 29.14
+      },
+      {
+        "distance": "3-5 km",
+        "car": 43.14,
+        "bus": 37.26,
+        "ebike": 29.64
+      },
+      {
+        "distance": "5-10 km",
+        "car": 64.14,
+        "bus": 40.15,
+        "ebike": 31.73
+      },
+      {
+        "distance": "10-15 km",
+        "car": 78.6,
+        "bus": 55.47,
+        "ebike": 29.34
+      },
+      {
+        "distance": ">15 km",
+        "car": 69.86,
+        "bus": 78.54,
+        "ebike": 23.74
+      }
+    ],
+    "occupation_distance_heatmap": {
+      "columns": [
+        "<=3 km",
+        "3-5 km",
+        "5-10 km",
+        "10-15 km",
+        ">15 km"
+      ],
+      "rows": [
+        {
+          "occupation": "FDI",
+          "values": [
+            44.24,
+            71.06,
+            81.27,
+            92.79,
+            98.67
+          ]
+        },
+        {
+          "occupation": "Private",
+          "values": [
+            35.58,
+            40.23,
+            46.1,
+            47.45,
+            36.0
+          ]
+        },
+        {
+          "occupation": "Retired",
+          "values": [
+            18.15,
+            18.75,
+            39.06,
+            65.52,
+            0.0
+          ]
+        },
+        {
+          "occupation": "State",
+          "values": [
+            30.3,
+            31.73,
+            63.03,
+            80.03,
+            65.67
+          ]
+        },
+        {
+          "occupation": "Student",
+          "values": [
+            36.52,
+            53.35,
+            69.51,
+            70.66,
+            68.0
+          ]
+        }
+      ]
+    },
+    "pt_proximity": [
+      {
+        "group": "Within 500m of PT",
+        "bus": 43.76,
+        "car": 49.75
+      },
+      {
+        "group": "More than 500m from PT",
+        "bus": 26.57,
+        "car": 41.98
+      }
+    ],
+    "perception": [
+      {
+        "perception": "Negative",
+        "car": 39.49,
+        "ebike": 24.93,
+        "bus": 39.77
+      },
+      {
+        "perception": "Neutral",
+        "car": 19.32,
+        "ebike": 27.92,
+        "bus": 35.46
+      },
+      {
+        "perception": "Positive",
+        "car": 71.09,
+        "ebike": 34.96,
+        "bus": 50.2
+      }
+    ]
+  }
+}

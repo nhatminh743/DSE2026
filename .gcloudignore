@@ -1,0 +1,16 @@
+.gcloudignore
+.git
+.gitignore
+.idea
+.vscode
+.env
+.firebase
+frontend
+analysis
+backend/__pycache__
+backend/**/__pycache__
+backend/.pytest_cache
+backend/artifacts
+backend/weights/model_lab/runs
+backend/weights/kmedian/runs
+backend/secrets

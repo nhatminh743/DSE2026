@@ -1,0 +1,1784 @@
+import { useState } from 'react';
+import { SURVEY_FIELDS } from '../surveyFields';
+
+const API_BASE = 'http://127.0.0.1:8001';
+
+export default function CitizenSurveyTab() {
+  const [form, setForm] = useState({});
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const updateField = (name, value) => {
+    setForm((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+  };
+
+  const submitSurvey = async (event) => {
+    event.preventDefault();
+    setStatus('');
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `${API_BASE}/api/survey/responses`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(
+          error.detail || 'Submission failed'
+        );
+      }
+
+      const result = await response.json();
+
+      setStatus(
+        `✓ Thank you. Your response was submitted (ID: ${result.id}).`
+      );
+      setForm({});
+    } catch (error) {
+      setStatus(`✗ Error: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearForm = () => {
+    setForm({});
+    setStatus('');
+  };
+
+  const filledCount = Object.keys(form).length;
+  const totalCount = SURVEY_FIELDS.length;
+  const progressPercent = Math.round(
+    (filledCount / totalCount) * 100
+  );
+
+  return (
+    <div className="h-full overflow-y-auto p-8">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl border border-[#e8eaed] p-8">
+        <h1 className="text-2xl font-semibold">
+          Hanoi Mobility Survey
+        </h1>
+
+        <p className="text-sm text-[#5f6368] mt-2 mb-6">
+          Please help us understand mobility preferences in Hanoi.
+          Fields may be completed progressively. Your response will be
+          saved securely.
+        </p>
+
+        <div className="mb-6">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-medium text-[#5f6368]">
+              Progress
+            </span>
+            <span className="text-xs font-medium text-[#1a73e8]">
+              {filledCount} / {totalCount}
+            </span>
+          </div>
+
+          <div className="w-full bg-gray-200 rounded-full h-2">
+            <div
+              className="bg-[#1a73e8] h-2 rounded-full transition-all duration-300"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        </div>
+
+        <form
+          onSubmit={submitSurvey}
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6"
+        >
+          {SURVEY_FIELDS.map((field) => (
+            <label
+              key={field.name}
+              className="text-sm"
+            >
+              <span className="block text-[#5f6368] font-medium mb-1.5">
+                {field.label}
+              </span>
+
+              <input
+                type={field.type}
+                name={field.name}
+                value={form[field.name] || ''}
+                onChange={(event) =>
+                  updateField(
+                    field.name,
+                    event.target.value
+                  )
+                }
+                placeholder={`Enter ${field.label.toLowerCase()}`}
+                className="w-full border border-[#dadce0] rounded-lg p-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a73e8]"
+              />
+            </label>
+          ))}
+
+          <div className="md:col-span-2 flex gap-3">
+            <button
+              type="submit"
+              disabled={loading || filledCount === 0}
+              className="flex-1 bg-[#1a73e8] text-white px-5 py-2.5 rounded-lg font-medium disabled:opacity-50 hover:bg-[#1665d0] transition-colors"
+            >
+              {loading ? 'Submitting...' : 'Submit response'}
+            </button>
+
+            <button
+              type="button"
+              onClick={clearForm}
+              className="px-5 py-2.5 border border-[#dadce0] rounded-lg font-medium text-[#5f6368] hover:bg-gray-50 transition-colors"
+            >
+              Clear
+            </button>
+          </div>
+        </form>
+
+        {status && (
+          <div
+            className={`mt-4 p-4 rounded-lg text-sm ${
+              status.startsWith('✓')
+                ? 'bg-green-50 text-green-800'
+                : 'bg-red-50 text-red-800'
+            }`}
+          >
+            {status}
+          </div>
+        )}
+
+        <div className="mt-8 border-t border-[#e8eaed] pt-6">
+          <h3 className="font-semibold text-sm mb-3">
+            Data privacy
+          </h3>
+
+          <p className="text-xs text-[#5f6368] mb-3">
+            Your responses will be stored securely and used only for
+            transport planning research. We will never share individual
+            responses with third parties.
+          </p>
+
+          <p className="text-xs text-[#5f6368]">
+            By submitting this survey, you agree to our data collection
+            and privacy terms.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+import { useEffect, useState } from 'react';
+
+const API_BASE = 'http://127.0.0.1:8001';
+
+export default function EdaTab() {
+  const [eda, setEda] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/analytics/eda`)
+      .then((response) => response.json())
+      .then((data) => {
+        setEda(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="p-8">
+        <div className="text-sm text-[#5f6368]">
+          Loading EDA visualizations...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-8">
+        <div className="text-sm text-red-600">
+          Error loading EDA: {error}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-full overflow-y-auto p-8">
+      <div className="max-w-6xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold">
+            Exploratory Data Analysis
+          </h1>
+          <p className="text-sm text-[#5f6368] mt-2">
+            Statistical overview of survey responses and model insights
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="bg-white rounded-2xl border border-[#e8eaed] p-6">
+            <h2 className="text-lg font-semibold mb-4">
+              Current mode distribution
+            </h2>
+
+            {eda?.mode_counts && eda.mode_counts.length > 0 ? (
+              <div className="space-y-3">
+                {eda.mode_counts.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between">
+                    <span className="text-sm">{item.mode}</span>
+                    <div className="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-[#1a73e8] h-2 rounded-full"
+                        style={{
+                          width: `${
+                            (item.count /
+                              Math.max(
+                                ...eda.mode_counts.map((x) => x.count)
+                              )) *
+                            100
+                          }%`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm font-medium">
+                      {item.count.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#5f6368]">No data available</p>
+            )}
+          </div>
+
+          <div className="bg-white rounded-2xl border border-[#e8eaed] p-6">
+            <h2 className="text-lg font-semibold mb-4">
+              Trip purpose distribution
+            </h2>
+
+            {eda?.purpose_counts && eda.purpose_counts.length > 0 ? (
+              <div className="space-y-3">
+                {eda.purpose_counts.map((item, idx) => (
+                  <div key={idx} className="flex items-center justify-between">
+                    <span className="text-sm">{item.purpose}</span>
+                    <div className="flex-1 mx-3 bg-gray-200 rounded-full h-2">
+                      <div
+                        className="bg-[#34a853] h-2 rounded-full"
+                        style={{
+                          width: `${
+                            (item.count /
+                              Math.max(
+                                ...eda.purpose_counts.map((x) => x.count)
+                              )) *
+                            100
+                          }%`,
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm font-medium">
+                      {item.count.toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-[#5f6368]">No data available</p>
+            )}
+          </div>
+
+          {eda?.affected_summary && (
+            <div className="bg-white rounded-2xl border border-[#e8eaed] p-6 lg:col-span-2">
+              <h2 className="text-lg font-semibold mb-4">
+                Affected respondents summary
+              </h2>
+
+              <div className="grid grid-cols-3 gap-4">
+                <div className="border border-[#e8eaed] rounded-lg p-4">
+                  <div className="text-xs text-[#5f6368]">
+                    Total affected
+                  </div>
+                  <div className="text-2xl font-semibold mt-2">
+                    {(
+                      eda.affected_summary.total_affected || 0
+                    ).toLocaleString()}
+                  </div>
+                </div>
+
+                <div className="border border-[#e8eaed] rounded-lg p-4">
+                  <div className="text-xs text-[#5f6368]">
+                    Current car users
+                  </div>
+                  <div className="text-2xl font-semibold mt-2">
+                    {(
+                      eda.affected_summary.current_car || 0
+                    ).toLocaleString()}
+                  </div>
+                </div>
+
+                <div className="border border-[#e8eaed] rounded-lg p-4">
+                  <div className="text-xs text-[#5f6368]">
+                    Current moto users
+                  </div>
+                  <div className="text-2xl font-semibold mt-2">
+                    {(
+                      eda.affected_summary.current_moto || 0
+                    ).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-2xl p-6">
+          <h3 className="font-semibold text-blue-900 mb-2">
+            Analysis metadata
+          </h3>
+          <p className="text-sm text-blue-800">
+            Charts export from notebook. For feature importance, SHAP plots,
+            and elasticity analysis, refer to the analysis notebook or backend
+            EDA artifacts.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+import { useEffect, useMemo, useState } from 'react';
+import {
+  CircleMarker,
+  MapContainer,
+  Polyline,
+  Popup,
+  TileLayer,
+} from 'react-leaflet';
+
+const API_BASE = 'http://127.0.0.1:8001';
+
+export default function KMedianTab() {
+  const [modelData, setModelData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [kStations, setKStations] = useState(100);
+
+  const fetchModel = async () => {
+    try {
+      setLoading(true);
+      setError('');
+
+      const response = await fetch(
+        `${API_BASE}/api/analytics/k-median?k=${encodeURIComponent(kStations)}`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to load k-median model results');
+      }
+
+      const data = await response.json();
+      setModelData(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchModel();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const palette = useMemo(
+    () => ['red', 'blue', 'green', 'purple', 'orange', 'darkred', 'darkblue', 'cadetblue', 'darkgreen', 'black'],
+    []
+  );
+
+  const stationColorMap = useMemo(() => {
+    const stations = modelData?.stations || [];
+    return stations.reduce((acc, station, idx) => {
+      acc[station.station_index] = palette[idx % palette.length];
+      return acc;
+    }, {});
+  }, [modelData, palette]);
+
+  return (
+    <div className="h-full flex">
+      <aside className="w-[360px] bg-white border-r border-[#dadce0] p-4 overflow-y-auto">
+        <h1 className="text-lg font-semibold mb-2">K-Median Station Model</h1>
+
+        <p className="text-xs text-[#5f6368] mb-4">
+          Exact k-median optimization using the notebook logic for e-bike station placement.
+        </p>
+
+        <div className="mb-4">
+          <label className="block text-sm text-[#5f6368] mb-2">Number of stations</label>
+          <div className="flex gap-2">
+            <input
+              type="number"
+              min="1"
+              max="5000"
+              value={kStations}
+              onChange={(e) => setKStations(Number(e.target.value) || 1)}
+              className="flex-1 border border-[#dadce0] rounded-lg p-2.5 text-sm outline-none focus:border-[#1a73e8]"
+            />
+            <button
+              type="button"
+              onClick={fetchModel}
+              className="bg-[#1a73e8] text-white text-sm font-medium px-3 py-2.5 rounded-lg"
+            >
+              Run
+            </button>
+          </div>
+        </div>
+
+        {loading && <div className="text-sm text-[#5f6368]">Loading model...</div>}
+
+        {error && (
+          <div className="p-3 rounded-lg bg-red-50 text-red-700 text-xs mb-4">
+            {error}
+          </div>
+        )}
+
+        {modelData && (
+          <div className="space-y-3">
+            <div className="rounded-xl border border-[#e8eaed] p-3">
+              <div className="text-xs text-[#5f6368]">People modeled</div>
+              <div className="text-xl font-semibold">{modelData.num_people}</div>
+            </div>
+
+            <div className="rounded-xl border border-[#e8eaed] p-3">
+              <div className="text-xs text-[#5f6368]">Selected stations</div>
+              <div className="text-xl font-semibold">{modelData.num_stations}</div>
+            </div>
+
+            <div className="rounded-xl border border-[#e8eaed] p-3">
+              <div className="text-xs text-[#5f6368]">Requested k</div>
+              <div className="text-xl font-semibold">{modelData.requested_k || kStations}</div>
+            </div>
+          </div>
+        )}
+      </aside>
+
+      <section className="flex-1">
+        <MapContainer center={[21.0285, 105.8542]} zoom={11} className="h-full w-full">
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          {(modelData?.stations || []).map((station, idx) => {
+            const color = stationColorMap[station.station_index] || palette[idx % palette.length];
+
+            return (
+              <CircleMarker
+                key={`station-${station.station_index}`}
+                center={[station.lat, station.lon]}
+                radius={8}
+                pathOptions={{
+                  color,
+                  fillColor: color,
+                  fillOpacity: 0.9,
+                  weight: 2,
+                }}
+              >
+                <Popup>
+                  <div style={{ minWidth: 150 }}>
+                    <strong>Station {station.station_index}</strong>
+                    <div>Assigned people: {station.assigned_people}</div>
+                    <div>Capacity: {station.capacity ?? 'n/a'}</div>
+                  </div>
+                </Popup>
+              </CircleMarker>
+            );
+          })}
+
+          {(modelData?.assignments || []).map((assignment, idx) => {
+            const color = stationColorMap[assignment.station_index] || '#2563eb';
+
+            return (
+              <div key={`assignment-${idx}`}>
+                <CircleMarker
+                  center={[assignment.person_lat, assignment.person_lon]}
+                  radius={4}
+                  pathOptions={{
+                    color,
+                    fillColor: color,
+                    fillOpacity: 0.6,
+                    weight: 1,
+                  }}
+                >
+                  <Popup>
+                    <div style={{ minWidth: 140 }}>
+                      <strong>Person {assignment.person_index}</strong>
+                      <div>Weight: {assignment.weight}</div>
+                      <div>Distance: {assignment.distance_km} km</div>
+                    </div>
+                  </Popup>
+                </CircleMarker>
+
+                <Polyline
+                  positions={[
+                    [assignment.person_lat, assignment.person_lon],
+                    [assignment.station_lat, assignment.station_lon],
+                  ]}
+                  color={color}
+                  weight={1}
+                  opacity={0.35}
+                />
+              </div>
+            );
+          })}
+        </MapContainer>
+      </section>
+    </div>
+  );
+}
+import { useEffect } from 'react';
+import { useMap } from 'react-leaflet';
+
+export function MapUpdater({ bounds }) {
+  const map = useMap();
+  useEffect(() => {
+    if (bounds && bounds.length > 0) {
+      map.fitBounds(bounds, { padding: [40, 40] });
+    }
+  }, [bounds, map]);
+  return null;
+}
+import { useEffect, useMemo, useState } from 'react';
+import {
+  CircleMarker,
+  GeoJSON,
+  MapContainer,
+  Popup,
+  TileLayer,
+} from 'react-leaflet';
+
+const API_BASE = 'http://127.0.0.1:8001';
+
+function getAffectedColor(value, maxValue) {
+  if (!value || !maxValue) return '#e5e7eb';
+
+  const ratio = value / maxValue;
+
+  if (ratio > 0.8) return '#991b1b';
+  if (ratio > 0.6) return '#dc2626';
+  if (ratio > 0.4) return '#f97316';
+  if (ratio > 0.2) return '#facc15';
+
+  return '#bbf7d0';
+}
+
+export default function OsmStationTab() {
+  const [districts, setDistricts] = useState([]);
+  const [boundaries, setBoundaries] = useState(null);
+  const [stations, setStations] = useState(null);
+
+  const [loading, setLoading] = useState(true);
+  const [stationLoading, setStationLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const maxAffected = useMemo(() => {
+    return Math.max(
+      0,
+      ...districts.map(
+        (item) => Number(item.affected_respondents || 0)
+      )
+    );
+  }, [districts]);
+
+  useEffect(() => {
+    async function loadDashboard() {
+      try {
+        setLoading(true);
+
+        const [
+          districtResponse,
+          boundaryResponse,
+        ] = await Promise.all([
+          fetch(`${API_BASE}/api/analytics/districts`),
+          fetch(`${API_BASE}/api/analytics/district-boundaries`),
+        ]);
+
+        if (!districtResponse.ok) {
+          throw new Error('Failed to load district analytics');
+        }
+
+        if (!boundaryResponse.ok) {
+          throw new Error('Failed to load district boundaries');
+        }
+
+        const districtData = await districtResponse.json();
+        const boundaryData = await boundaryResponse.json();
+
+        setDistricts(districtData.districts || []);
+        setBoundaries(boundaryData);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadDashboard();
+  }, []);
+
+  const loadStations = async () => {
+    try {
+      setStationLoading(true);
+
+      const response = await fetch(
+        `${API_BASE}/api/analytics/stations?capacity=20&max_candidates=300`
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to run station model');
+      }
+
+      const data = await response.json();
+      setStations(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setStationLoading(false);
+    }
+  };
+
+  const styleDistrict = (feature) => {
+    const districtName =
+      feature?.properties?.district_name;
+
+    const item = districts.find(
+      (row) => row.district_name === districtName
+    );
+
+    const affected = Number(
+      item?.affected_respondents || 0
+    );
+
+    return {
+      fillColor: getAffectedColor(
+        affected,
+        maxAffected
+      ),
+      weight: 1,
+      color: '#4b5563',
+      fillOpacity: 0.65,
+    };
+  };
+
+  const onEachDistrict = (feature, layer) => {
+    const districtName =
+      feature?.properties?.district_name;
+
+    const item = districts.find(
+      (row) => row.district_name === districtName
+    );
+
+    const affected = Number(
+      item?.affected_respondents || 0
+    );
+
+    const pCar = Number(
+      item?.p_car || 0
+    );
+
+    const pEbike = Number(
+      item?.p_ebike || 0
+    );
+
+    const pBus = Number(
+      item?.p_bus || 0
+    );
+
+    layer.bindPopup(`
+      <div style="min-width: 220px; font-family: sans-serif;">
+        <strong>${districtName || 'Unknown district'}</strong>
+        <hr style="margin: 6px 0;" />
+
+        <div style="font-size: 12px; line-height: 1.6;">
+          <div>Affected respondents: <b>${affected}</b></div>
+          <div>p(car): <b>${pCar.toFixed(3)}</b></div>
+          <div>p(e-bike): <b>${pEbike.toFixed(3)}</b></div>
+          <div>p(bus): <b>${pBus.toFixed(3)}</b></div>
+        </div>
+      </div>
+    `);
+  };
+
+  return (
+    <div className="h-full flex">
+      <aside className="w-[360px] bg-white border-r border-[#dadce0] p-4 overflow-y-auto">
+        <h1 className="text-lg font-semibold mb-2">
+          OSM & Affected Respondents
+        </h1>
+
+        <p className="text-xs text-[#5f6368] mb-4">
+          Click a district to inspect affected respondents,
+          current mode and predicted fallback probabilities.
+        </p>
+
+        {loading && (
+          <div className="text-sm text-[#5f6368]">
+            Loading analytics...
+          </div>
+        )}
+
+        {error && (
+          <div className="p-3 rounded-lg bg-red-50 text-red-700 text-xs mb-4">
+            {error}
+          </div>
+        )}
+
+        <button
+          type="button"
+          onClick={loadStations}
+          disabled={stationLoading}
+          className="w-full mb-4 py-2.5 rounded-lg bg-[#1a73e8] text-white text-sm disabled:opacity-50 font-medium"
+        >
+          {stationLoading
+            ? 'Running station model...'
+            : 'Run K-station model'}
+        </button>
+
+        {stations && (
+          <div className="border border-[#e8eaed] rounded-xl p-3 mb-4">
+            <div className="text-xs text-[#5f6368]">
+              Demand respondents
+            </div>
+            <div className="text-xl font-semibold">
+              {stations.num_people.toLocaleString()}
+            </div>
+
+            <div className="text-xs text-[#5f6368] mt-2">
+              Recommended stations
+            </div>
+            <div className="text-xl font-semibold">
+              {stations.num_stations.toLocaleString()}
+            </div>
+
+            <div className="text-xs text-[#5f6368] mt-2">
+              Candidate locations
+            </div>
+            <div className="text-xl font-semibold">
+              {stations.num_candidates.toLocaleString()}
+            </div>
+          </div>
+        )}
+
+        <h2 className="text-sm font-semibold mb-2">
+          District ranking
+        </h2>
+
+        <div className="space-y-2 max-h-96 overflow-y-auto">
+          {districts.map((district, idx) => (
+            <div
+              key={idx}
+              className="border border-[#e8eaed] rounded-lg p-3"
+            >
+              <div className="font-medium text-sm">
+                {district.district_name}
+              </div>
+
+              <div className="text-xs text-[#5f6368] mt-1">
+                Affected respondents:{' '}
+                <b>
+                  {Number(
+                    district.affected_respondents || 0
+                  ).toLocaleString()}
+                </b>
+              </div>
+
+              <div className="text-xs text-[#5f6368]">
+                Average p(e-bike):{' '}
+                <b>
+                  {Number(
+                    district.p_ebike || 0
+                  ).toFixed(3)}
+                </b>
+              </div>
+            </div>
+          ))}
+        </div>
+      </aside>
+
+      <section className="flex-1">
+        <MapContainer
+          center={[21.0285, 105.8542]}
+          zoom={11}
+          className="h-full w-full"
+        >
+          <TileLayer
+            attribution='&copy; OpenStreetMap contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          {boundaries && (
+            <GeoJSON
+              data={boundaries}
+              style={styleDistrict}
+              onEachFeature={onEachDistrict}
+            />
+          )}
+
+          {stations?.stations?.map((station) => (
+            <CircleMarker
+              key={station.station_index}
+              center={[station.lat, station.lon]}
+              radius={8}
+              pathOptions={{
+                color: '#2563eb',
+                fillColor: '#60a5fa',
+                fillOpacity: 0.9,
+              }}
+            >
+              <Popup>
+                <b>Proposed e-bike station</b>
+                <br />
+                Assigned:{' '}
+                {station.assigned_people}/
+                {station.capacity}
+                <br />
+                Latitude: {station.lat.toFixed(5)}
+                <br />
+                Longitude: {station.lon.toFixed(5)}
+              </Popup>
+            </CircleMarker>
+          ))}
+        </MapContainer>
+      </section>
+    </div>
+  );
+}
+
+import { useEffect, useState } from 'react';
+
+const API_BASE = 'http://127.0.0.1:8001';
+
+function MetricCard({ label, value, subtitle }) {
+  return (
+    <div className="bg-white rounded-2xl border border-[#e8eaed] p-5 shadow-sm">
+      <div className="text-xs text-[#5f6368]">{label}</div>
+
+      <div className="text-3xl font-semibold mt-2">{value}</div>
+
+      {subtitle && (
+        <div className="text-xs text-[#5f6368] mt-2">{subtitle}</div>
+      )}
+    </div>
+  );
+}
+
+export default function PolicyDashboard() {
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    fetch(`${API_BASE}/api/analytics/districts`)
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json.districts || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  const totalAffected = data.reduce(
+    (sum, row) => sum + Number(row.affected_respondents || 0),
+    0
+  );
+
+  const totalCar = data.reduce(
+    (sum, row) => sum + Number(row.p_current_car || 0),
+    0
+  );
+
+  const totalMoto = data.reduce(
+    (sum, row) => sum + Number(row.p_current_moto || 0),
+    0
+  );
+
+  const topDistrict = [...data].sort(
+    (a, b) =>
+      Number(b.affected_respondents || 0)
+      - Number(a.affected_respondents || 0)
+  )[0];
+
+  if (loading) {
+    return (
+      <div className="p-8">
+        <div className="text-sm text-[#5f6368]">
+          Loading policy dashboard...
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="p-8">
+        <div className="text-sm text-red-600">
+          Error: {error}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="h-full overflow-y-auto p-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-8">
+          <h1 className="text-3xl font-semibold">
+            Hanoi Mobility Policy Dashboard
+          </h1>
+
+          <p className="text-sm text-[#5f6368] mt-2">
+            Evidence dashboard for transport transition,
+            ICE-ban scenarios and e-bike infrastructure planning.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <MetricCard
+            label="Affected respondents"
+            value={totalAffected.toLocaleString()}
+            subtitle="Current car or motorbike users"
+          />
+
+          <MetricCard
+            label="Current car respondents"
+            value={Math.round(totalCar).toLocaleString()}
+          />
+
+          <MetricCard
+            label="Current motorbike respondents"
+            value={Math.round(totalMoto).toLocaleString()}
+          />
+
+          <MetricCard
+            label="Highest-impact district"
+            value={topDistrict?.district_name || '—'}
+            subtitle={
+              topDistrict
+                ? `${Number(topDistrict.affected_respondents || 0).toLocaleString()} affected`
+                : ''
+            }
+          />
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
+          <div className="bg-white rounded-2xl border border-[#e8eaed] p-5">
+            <h2 className="font-semibold mb-4">
+              Districts requiring attention
+            </h2>
+
+            <div className="space-y-3">
+              {[...data]
+                .sort(
+                  (a, b) =>
+                    Number(b.affected_respondents || 0)
+                    - Number(a.affected_respondents || 0)
+                )
+                .slice(0, 10)
+                .map((row, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center justify-between"
+                  >
+                    <span className="text-sm">
+                      {row.district_name}
+                    </span>
+
+                    <span className="text-sm font-semibold">
+                      {Number(
+                        row.affected_respondents || 0
+                      ).toLocaleString()}
+                    </span>
+                  </div>
+                ))}
+            </div>
+          </div>
+
+          <div className="bg-white rounded-2xl border border-[#e8eaed] p-5">
+            <h2 className="font-semibold mb-4">
+              Recommended policy questions
+            </h2>
+
+            <ul className="list-disc list-inside text-sm text-[#3c4043] space-y-2">
+              <li>
+                Which districts have the largest affected population?
+              </li>
+              <li>
+                Where is predicted e-bike adoption strongest?
+              </li>
+              <li>
+                Which districts need public transport alternatives?
+              </li>
+              <li>
+                Where should charging or shared e-bike stations be placed?
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { MapContainer, Marker, Popup, Polyline, TileLayer } from 'react-leaflet';
+import polyline from '@mapbox/polyline';
+import L from 'leaflet';
+import { Navigation } from 'lucide-react';
+import '../fix-leaflet';
+import { MapUpdater } from './MapUpdater';
+
+const INITIAL_START = [21.0177, 105.789];
+const INITIAL_END = [20.9919, 105.806];
+const API_BASE = 'http://127.0.0.1:8001';
+
+const ELECTRICITY_PRICE_VND_PER_KWH = 2500;
+const EV_KWH_PER_100KM = 3.0;
+const WEEKS_PER_MONTH = 4.33;
+
+const createMarkerIcon = (color, letter) =>
+  new L.DivIcon({
+    className: '',
+    html: `
+      <div style="
+        width: 18px;
+        height: 18px;
+        border-radius: 9999px;
+        background: ${color};
+        border: 2px solid #ffffff;
+        box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.08), 0 3px 10px rgba(0,0,0,0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff;
+        font-size: 10px;
+        font-weight: 700;
+        line-height: 1;
+        user-select: none;
+      ">${letter}</div>
+    `,
+    iconSize: [18, 18],
+    iconAnchor: [9, 9],
+    popupAnchor: [0, -10],
+  });
+
+const startMarkerIcon = createMarkerIcon('#22c55e', 'S');
+const endMarkerIcon = createMarkerIcon('#ef4444', 'D');
+
+export function RouteCalculatorTab() {
+  const [startPos, setStartPos] = useState(INITIAL_START);
+  const [endPos, setEndPos] = useState(INITIAL_END);
+  const [routeMode, setRouteMode] = useState('public_transport');
+  const [tripsPerWeek, setTripsPerWeek] = useState(10);
+  const [evPrice, setEvPrice] = useState(30000000);
+  const [compactTable, setCompactTable] = useState(false);
+  const [compactPanel, setCompactPanel] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const [resultsByMode, setResultsByMode] = useState({});
+  const [startSearch, setStartSearch] = useState('');
+  const [endSearch, setEndSearch] = useState('');
+  const [startSuggestions, setStartSuggestions] = useState([]);
+  const [endSuggestions, setEndSuggestions] = useState([]);
+  const [startSearchLoading, setStartSearchLoading] = useState(false);
+  const [endSearchLoading, setEndSearchLoading] = useState(false);
+
+  const [inputMode, setInputMode] = useState('search');
+  const skipStartAutocompleteRef = useRef(false);
+  const skipEndAutocompleteRef = useRef(false);
+
+  const startMarkerRef = useRef(null);
+  const endMarkerRef = useRef(null);
+
+  const startHandlers = useMemo(
+    () => ({
+      dragend() {
+        const marker = startMarkerRef.current;
+        if (marker) {
+          const latlng = marker.getLatLng();
+          setStartPos([latlng.lat, latlng.lng]);
+        }
+      },
+    }),
+    []
+  );
+
+  const endHandlers = useMemo(
+    () => ({
+      dragend() {
+        const marker = endMarkerRef.current;
+        if (marker) {
+          const latlng = marker.getLatLng();
+          setEndPos([latlng.lat, latlng.lng]);
+        }
+      },
+    }),
+    []
+  );
+
+  const activeRoute = resultsByMode[routeMode] || null;
+
+  const routeCoordinates = useMemo(() => {
+    const encoded = activeRoute?.polyline;
+    if (!encoded) return [];
+    return polyline.decode(encoded);
+  }, [activeRoute]);
+
+  const stripHtml = (html) => {
+    if (!html) return '';
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const raw = doc.body.textContent || '';
+    return raw
+      .replace(/([a-z0-9)])(Pass by|Destination will be on|Slight|Turn|Keep|Continue|Merge|Take the)/g, '$1. $2')
+      .replace(/\s+/g, ' ')
+      .trim();
+  };
+
+  const updateStartCoord = (index, value) => {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return;
+    setStartPos((prev) => (index === 0 ? [parsed, prev[1]] : [prev[0], parsed]));
+  };
+
+  const updateEndCoord = (index, value) => {
+    const parsed = Number(value);
+    if (!Number.isFinite(parsed)) return;
+    setEndPos((prev) => (index === 0 ? [parsed, prev[1]] : [prev[0], parsed]));
+  };
+
+  const fetchAutocomplete = async (queryText, signal) => {
+    const res = await fetch(
+      `${API_BASE}/api/maps/autocomplete?input=${encodeURIComponent(queryText)}`,
+      { signal }
+    );
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText || 'Failed to fetch suggestions');
+    }
+    const data = await res.json();
+    return data.suggestions || [];
+  };
+
+  const fetchPlaceDetails = async (placeId) => {
+    const res = await fetch(`${API_BASE}/api/maps/place-details?place_id=${encodeURIComponent(placeId)}`);
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText || 'Failed to fetch place details');
+    }
+    return await res.json();
+  };
+
+  useEffect(() => {
+    if (skipStartAutocompleteRef.current) {
+      skipStartAutocompleteRef.current = false;
+      setStartSuggestions([]);
+      return;
+    }
+
+    if (startSearch.trim().length < 2) {
+      setStartSuggestions([]);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(async () => {
+      setStartSearchLoading(true);
+
+      try {
+        const suggestions = await fetchAutocomplete(
+          startSearch.trim(),
+          controller.signal
+        );
+
+        if (!controller.signal.aborted) {
+          setStartSuggestions(suggestions);
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setStartSuggestions([]);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setStartSearchLoading(false);
+        }
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [startSearch]);
+
+  useEffect(() => {
+    if (skipEndAutocompleteRef.current) {
+      skipEndAutocompleteRef.current = false;
+      setEndSuggestions([]);
+      return;
+    }
+
+    if (endSearch.trim().length < 2) {
+      setEndSuggestions([]);
+      return;
+    }
+
+    const controller = new AbortController();
+
+    const timeoutId = setTimeout(async () => {
+      setEndSearchLoading(true);
+
+      try {
+        const suggestions = await fetchAutocomplete(
+          endSearch.trim(),
+          controller.signal
+        );
+
+        if (!controller.signal.aborted) {
+          setEndSuggestions(suggestions);
+        }
+      } catch (err) {
+        if (err.name !== 'AbortError') {
+          setEndSuggestions([]);
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setEndSearchLoading(false);
+        }
+      }
+    }, 300);
+
+    return () => {
+      clearTimeout(timeoutId);
+      controller.abort();
+    };
+  }, [endSearch]);
+
+  const pickStartSuggestion = async (suggestion) => {
+    try {
+      const place = await fetchPlaceDetails(suggestion.place_id);
+
+      setStartPos([place.lat, place.lng]);
+
+      skipStartAutocompleteRef.current = true;
+      setStartSearch(suggestion.description);
+      setStartSuggestions([]);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const pickEndSuggestion = async (suggestion) => {
+    try {
+      const place = await fetchPlaceDetails(suggestion.place_id);
+
+      setEndPos([place.lat, place.lng]);
+
+      skipEndAutocompleteRef.current = true;
+      setEndSearch(suggestion.description);
+      setEndSuggestions([]);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const fetchMode = async (mode, payloadBase) => {
+    const res = await fetch(`${API_BASE}/api/calculator/public_transport`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payloadBase, transport_mode: mode }),
+    });
+
+    if (!res.ok) {
+      const errorText = await res.text();
+      throw new Error(errorText || `Failed to fetch ${mode}`);
+    }
+
+    const data = await res.json();
+    if (!data.success) {
+      throw new Error(data.error_reason || `Routing failed for ${mode}`);
+    }
+
+    return data;
+  };
+
+  const handleCalculate = async () => {
+    setLoading(true);
+    setError('');
+
+    const payloadBase = {
+      orig_lat: startPos[0],
+      orig_lon: startPos[1],
+      dest_lat: endPos[0],
+      dest_lon: endPos[1],
+    };
+
+    try {
+      const [publicTransport, motorbike, car] = await Promise.all([
+        fetchMode('public_transport', payloadBase),
+        fetchMode('motorbike', payloadBase),
+        fetchMode('car', payloadBase),
+      ]);
+
+      setResultsByMode({
+        public_transport: publicTransport,
+        motorbike,
+        car,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const comparisonData = useMemo(() => {
+    if (!resultsByMode.public_transport || !resultsByMode.motorbike || !resultsByMode.car) {
+      return null;
+    }
+
+    const monthlyTrips = Number(tripsPerWeek) * WEEKS_PER_MONTH;
+
+    const pt = resultsByMode.public_transport;
+    const mb = resultsByMode.motorbike;
+    const car = resultsByMode.car;
+
+    const evDistanceKm = mb.distance_km || 0;
+    const evFarePerTrip = evDistanceKm * (EV_KWH_PER_100KM / 100) * ELECTRICITY_PRICE_VND_PER_KWH;
+    const evMonthlyElectricity = evFarePerTrip * monthlyTrips;
+    const evMonthlyVehiclePayment = Number(evPrice) / 12;
+    const evMonthlyTotal = evMonthlyElectricity + evMonthlyVehiclePayment;
+
+    const motorbikeMonthlyFuel = (mb.fare_vnd || 0) * monthlyTrips;
+    const monthlySavingVsMotorbike = motorbikeMonthlyFuel - evMonthlyElectricity;
+
+    let evRecommendation = ' ';
+    if (monthlySavingVsMotorbike > 0) {
+      const monthsToBreakEven = Number(evPrice) / monthlySavingVsMotorbike;
+      evRecommendation = `EV outplays motorbike in about ${monthsToBreakEven.toFixed(1)} months (fuel + electricity comparison).`;
+    } else {
+      evRecommendation = 'No break-even with current route and prices.';
+    }
+
+    return [
+      {
+        method: 'Public transport',
+        timeMins: pt.duration_mins,
+        farePerTrip: pt.fare_vnd,
+        monthlyCost: (pt.fare_vnd || 0) * monthlyTrips,
+        recommendation: ' ',
+      },
+      {
+        method: 'Motorbike',
+        timeMins: mb.duration_mins,
+        farePerTrip: mb.fare_vnd,
+        monthlyCost: (mb.fare_vnd || 0) * monthlyTrips,
+        recommendation: ' ',
+      },
+      {
+        method: 'Car',
+        timeMins: car.duration_mins,
+        farePerTrip: car.fare_vnd,
+        monthlyCost: (car.fare_vnd || 0) * monthlyTrips,
+        recommendation: ' ',
+      },
+      {
+        method: 'EV',
+        timeMins: mb.duration_mins,
+        farePerTrip: evFarePerTrip,
+        monthlyCost: evMonthlyTotal,
+        recommendation: evRecommendation,
+      },
+    ];
+  }, [resultsByMode, tripsPerWeek, evPrice]);
+
+  const getMethodLabel = (method) => {
+    if (!compactTable) return method;
+    if (method === 'Public transport') return 'PT';
+    if (method === 'Motorbike') return 'MB';
+    return method;
+  };
+
+  return (
+    <div className="h-full w-full flex bg-[#f1f3f4] text-[#202124]">
+      <aside
+        className={`${
+          compactPanel ? 'w-full md:w-[300px] lg:w-[320px]' : 'w-full md:w-[430px] lg:w-[460px]'
+        } bg-white border-r border-[#dadce0] p-4 overflow-y-auto shadow-[0_1px_3px_rgba(60,64,67,0.3),0_4px_8px_3px_rgba(60,64,67,0.15)] z-[1000] transition-all duration-200`}
+      >
+        <div className="flex items-center justify-between gap-2 mb-3">
+          <div className="flex items-center gap-2">
+            <Navigation className="w-5 h-5 text-[#1a73e8]" />
+            <h1 className="text-[20px] font-semibold tracking-tight">Route Options</h1>
+          </div>
+          <button
+            type="button"
+            onClick={() => setCompactPanel((prev) => !prev)}
+            className="text-[11px] text-[#1a73e8] border border-[#d2e3fc] bg-[#e8f0fe] rounded-full px-2 py-1 whitespace-nowrap"
+          >
+            {compactPanel ? 'Expand panel' : 'Compact panel'}
+          </button>
+        </div>
+
+        <p className="text-xs text-[#5f6368] mb-4">
+          Choose Search places or Coordinates, then click Calculate.
+        </p>
+
+        <div className="mb-4">
+          <div className="flex border-b border-[#dadce0]">
+            <button
+              type="button"
+              onClick={() => setInputMode('search')}
+              className={`flex-1 py-2 text-sm font-medium border-b-2 transition ${
+                inputMode === 'search'
+                  ? 'text-[#1a73e8] border-[#1a73e8]'
+                  : 'text-[#5f6368] border-transparent'
+              }`}
+            >
+              Search places
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setInputMode('coordinates')}
+              className={`flex-1 py-2 text-sm font-medium border-b-2 transition ${
+                inputMode === 'coordinates'
+                  ? 'text-[#1a73e8] border-[#1a73e8]'
+                  : 'text-[#5f6368] border-transparent'
+              }`}
+            >
+              Coordinates
+            </button>
+          </div>
+        </div>
+
+        <div className="space-y-3 text-sm">
+          {inputMode === 'search' ? (
+            <>
+              <div className="relative">
+                <label className="block text-[#5f6368] mb-1">
+                  Search Origin
+                </label>
+
+                <input
+                  type="text"
+                  value={startSearch}
+                  onChange={(e) => {
+                    setStartSearch(e.target.value);
+                    setStartSuggestions([]);
+                  }}
+                  placeholder="Search starting point"
+                  className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                />
+
+                {startSearchLoading && (
+                  <div className="text-[11px] text-[#5f6368] mt-1">
+                    Searching...
+                  </div>
+                )}
+
+                {startSuggestions.length > 0 && (
+                  <ul className="absolute left-0 right-0 top-[66px] bg-white border border-[#dadce0] rounded-lg shadow-md max-h-40 overflow-auto z-[1200]">
+                    {startSuggestions.map((item) => (
+                      <li
+                        key={item.place_id}
+                        onMouseDown={() => pickStartSuggestion(item)}
+                        className="px-3 py-2 text-xs hover:bg-[#f1f3f4] cursor-pointer"
+                      >
+                        {item.description}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+
+              <div className="relative">
+                <label className="block text-[#5f6368] mb-1">
+                  Search Destination
+                </label>
+
+                <input
+                  type="text"
+                  value={endSearch}
+                  onChange={(e) => {
+                    setEndSearch(e.target.value);
+                    setEndSuggestions([]);
+                  }}
+                  placeholder="Search destination"
+                  className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                />
+
+                {endSearchLoading && (
+                  <div className="text-[11px] text-[#5f6368] mt-1">
+                    Searching...
+                  </div>
+                )}
+
+                {endSuggestions.length > 0 && (
+                  <ul className="absolute left-0 right-0 top-[66px] bg-white border border-[#dadce0] rounded-lg shadow-md max-h-40 overflow-auto z-[1200]">
+                    {endSuggestions.map((item) => (
+                      <li
+                        key={item.place_id}
+                        onMouseDown={() => pickEndSuggestion(item)}
+                        className="px-3 py-2 text-xs hover:bg-[#f1f3f4] cursor-pointer"
+                      >
+                        {item.description}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[#5f6368] mb-1">
+                    Origin Lat
+                  </label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={startPos[0]}
+                    onChange={(e) => updateStartCoord(0, e.target.value)}
+                    className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5f6368] mb-1">
+                    Origin Lon
+                  </label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={startPos[1]}
+                    onChange={(e) => updateStartCoord(1, e.target.value)}
+                    className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <div>
+                  <label className="block text-[#5f6368] mb-1">
+                    Destination Lat
+                  </label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={endPos[0]}
+                    onChange={(e) => updateEndCoord(0, e.target.value)}
+                    className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-[#5f6368] mb-1">
+                    Destination Lon
+                  </label>
+                  <input
+                    type="number"
+                    step="any"
+                    value={endPos[1]}
+                    onChange={(e) => updateEndCoord(1, e.target.value)}
+                    className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+                  />
+                </div>
+              </div>
+            </>
+          )}
+
+          <div className="grid grid-cols-2 gap-2">
+            <div>
+              <label className="block text-[#5f6368] mb-1">Trips / Week</label>
+              <input
+                type="number"
+                min="1"
+                value={tripsPerWeek}
+                onChange={(e) => setTripsPerWeek(Number(e.target.value) || 1)}
+                className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+              />
+            </div>
+            <div>
+              <label className="block text-[#5f6368] mb-1">EV Price (VND)</label>
+              <input
+                type="number"
+                min="0"
+                value={evPrice}
+                onChange={(e) => setEvPrice(Number(e.target.value) || 0)}
+                className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-[#5f6368] mb-1">Route displayed on map</label>
+            <select
+              value={routeMode}
+              onChange={(e) => setRouteMode(e.target.value)}
+              className="w-full border border-[#dadce0] rounded-lg p-2.5 outline-none focus:border-[#1a73e8]"
+            >
+              <option value="public_transport">Public transport</option>
+              <option value="motorbike">Motorbike</option>
+              <option value="car">Car</option>
+            </select>
+          </div>
+
+          <button
+            onClick={handleCalculate}
+            disabled={loading}
+            className="w-full bg-[#1a73e8] hover:bg-[#185abc] text-white font-medium py-2.5 rounded-xl transition disabled:opacity-50"
+          >
+            {loading ? 'Calculating...' : 'Calculate'}
+          </button>
+
+          {error && (
+            <div className="p-3 bg-red-50 text-red-700 text-xs rounded-lg border border-red-200">
+              {error}
+            </div>
+          )}
+        </div>
+
+        <div className="mt-5">
+          <div className="flex items-center justify-between mb-2 gap-2">
+            <h2 className="text-sm font-semibold text-[#3c4043]">Comparison Table</h2>
+            <button
+              type="button"
+              onClick={() => setCompactTable((prev) => !prev)}
+              className="text-[11px] text-[#1a73e8] border border-[#d2e3fc] bg-[#e8f0fe] rounded-full px-2 py-1"
+            >
+              {compactTable ? 'Normal table' : 'Compact table'}
+            </button>
+          </div>
+          <div className="overflow-auto border border-[#e8eaed] rounded-xl">
+            <table className={`w-full ${compactTable ? 'text-[11px]' : 'text-xs'}`}>
+              <thead className="bg-[#f8f9fa] text-[#5f6368]">
+                <tr>
+                  <th className={`text-left ${compactTable ? 'p-1.5' : 'p-2'}`}>Method</th>
+                  <th className={`text-left ${compactTable ? 'p-1.5' : 'p-2'}`}>Time</th>
+                  <th className={`text-left ${compactTable ? 'p-1.5' : 'p-2'}`}>Fare</th>
+                  <th className={`text-left ${compactTable ? 'p-1.5' : 'p-2'}`}>Monthly</th>
+                  {!compactTable && <th className="text-left p-2">Recommendation</th>}
+                </tr>
+              </thead>
+              <tbody>
+                {comparisonData ? (
+                  comparisonData.map((row) => (
+                    <tr key={row.method} className="border-t border-[#f1f3f4] align-top">
+                      <td className={`${compactTable ? 'p-1.5' : 'p-2'} font-medium`}>{getMethodLabel(row.method)}</td>
+                      <td className={compactTable ? 'p-1.5' : 'p-2'}>{Number(row.timeMins).toFixed(1)} min</td>
+                      <td className={compactTable ? 'p-1.5' : 'p-2'}>{Math.round(row.farePerTrip || 0).toLocaleString()} VND</td>
+                      <td className={compactTable ? 'p-1.5' : 'p-2'}>{Math.round(row.monthlyCost || 0).toLocaleString()} VND</td>
+                      {!compactTable && <td className="p-2 text-[#5f6368]">{row.recommendation}</td>}
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={compactTable ? 4 : 5} className="p-3 text-[#5f6368]">
+                      No data yet. Click Calculate.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-4 border border-[#e8eaed] rounded-xl p-3 bg-[#f8f9fa]">
+          <h3 className="text-xs font-semibold text-[#3c4043] mb-1">Recommendation</h3>
+          <p className="text-xs text-[#5f6368]">
+            {comparisonData ? comparisonData.find((row) => row.method === 'EV')?.recommendation : ' '}
+          </p>
+        </div>
+
+        {activeRoute && (
+          <div className="mt-4 border-t border-[#e8eaed] pt-3">
+            <h3 className="text-sm font-semibold text-[#3c4043] mb-2">Route Steps ({routeMode.replace('_', ' ')})</h3>
+            {Array.isArray(activeRoute.steps) && activeRoute.steps.length > 0 ? (
+              <ol className="space-y-1 text-xs text-[#3c4043] list-decimal list-inside">
+                {activeRoute.steps.map((step, idx) => {
+                  if (step.type === 'TRANSIT') {
+                    return (
+                      <li key={`transit-${idx}`}>
+                        Take {step.vehicle || 'TRANSIT'} line {step.line || 'N/A'} from {step.from_stop || 'Unknown stop'} to {step.to_stop || 'Unknown stop'} ({step.num_stops || 0} stops)
+                      </li>
+                    );
+                  }
+
+                  if (step.type === 'WALKING') {
+                    return <li key={`walk-${idx}`}>Walk {step.distance_m || 0} m</li>;
+                  }
+
+                  if (step.type === 'DRIVING' || step.type === 'TWO_WHEELER') {
+                    return (
+                      <li key={`route-${idx}`}>
+                        {stripHtml(step.instructions) || 'Continue on route'}
+                      </li>
+                    );
+                  }
+
+                  return (
+                    <li key={`route-${idx}`}>
+                      {step.type || 'ROUTE'}: {stripHtml(step.instructions) || 'Continue on route'}
+                    </li>
+                  );
+                })}
+              </ol>
+            ) : (
+              <div className="text-xs text-[#5f6368]">No route steps available.</div>
+            )}
+          </div>
+        )}
+      </aside>
+
+      <section className="flex-1 relative">
+        <MapContainer center={INITIAL_START} zoom={13} className="h-full w-full" zoomControl>
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          <Marker icon={startMarkerIcon} draggable eventHandlers={startHandlers} position={startPos} ref={startMarkerRef}>
+            <Popup>Origin</Popup>
+          </Marker>
+
+          <Marker icon={endMarkerIcon} draggable eventHandlers={endHandlers} position={endPos} ref={endMarkerRef}>
+            <Popup>Destination</Popup>
+          </Marker>
+
+          {routeCoordinates.length > 0 && (
+            <>
+              <Polyline positions={routeCoordinates} color="#1a73e8" weight={6} opacity={0.9} />
+              <MapUpdater bounds={routeCoordinates} />
+            </>
+          )}
+        </MapContainer>
+      </section>
+    </div>
+  );
+}

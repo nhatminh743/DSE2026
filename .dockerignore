@@ -1,0 +1,16 @@
+.git
+.idea
+.vscode
+.env
+frontend/node_modules
+frontend/dist
+analysis
+backend/__pycache__
+backend/**/__pycache__
+backend/.pytest_cache
+backend/weights/model_lab/**/*.joblib
+backend/weights/model_lab/**/model_artifacts.zip
+backend/weights/kmedian/**/weights.json
+backend/weights/model_lab/runs
+backend/weights/kmedian/runs
+backend/secrets

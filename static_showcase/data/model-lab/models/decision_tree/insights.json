@@ -1,0 +1,626 @@
+{
+  "model_type": "decision_tree",
+  "affected_respondents": 22007,
+  "source_rows": 26106,
+  "feature_importance": {
+    "current_mode": [
+      {
+        "feature": "status_permanent",
+        "importance": 0.35014291
+      },
+      {
+        "feature": "OD_dist",
+        "importance": 0.27786258
+      },
+      {
+        "feature": "travtime",
+        "importance": 0.07313231
+      },
+      {
+        "feature": "purp_education",
+        "importance": 0.05370454
+      },
+      {
+        "feature": "dist_to_pub",
+        "importance": 0.05074726
+      },
+      {
+        "feature": "purp_visit",
+        "importance": 0.03697101
+      },
+      {
+        "feature": "occup_student",
+        "importance": 0.02467394
+      },
+      {
+        "feature": "age_18_25",
+        "importance": 0.02366992
+      },
+      {
+        "feature": "age_56_75",
+        "importance": 0.01748295
+      },
+      {
+        "feature": "own_rent",
+        "importance": 0.01562631
+      }
+    ],
+    "fallback_modes": {
+      "alt_car": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.29650626
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.20461185
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.13438522
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.1049001
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.06578206
+        },
+        {
+          "feature": "occup_retired",
+          "importance": 0.04659053
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.02826293
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.01669659
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.01320121
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.01317827
+        }
+      ],
+      "alt_ebike": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.31355058
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.28321046
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.16071243
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.02804739
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.02597952
+        },
+        {
+          "feature": "age_less_18",
+          "importance": 0.01927256
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.01914461
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.01900884
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.01665496
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.01337551
+        }
+      ],
+      "alt_bike": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.33470023
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.24653101
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.12428546
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.04725401
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.03522067
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.03150814
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.02419004
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.023919
+        },
+        {
+          "feature": "occup_retired",
+          "importance": 0.02090038
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.01431333
+        }
+      ],
+      "alt_bus": [
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.27205719
+        },
+        {
+          "feature": "OD_dist",
+          "importance": 0.25349559
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.18607568
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.04249596
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.02625552
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.0244594
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.02384323
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.02353132
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.02167261
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.02050552
+        }
+      ],
+      "alt_ltrain": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.25866445
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.18551019
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.18246465
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.04708792
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.04521321
+        },
+        {
+          "feature": "purp_shopping",
+          "importance": 0.03294315
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.03157358
+        },
+        {
+          "feature": "purp_leisure",
+          "importance": 0.03090441
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.0284549
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.02573544
+        }
+      ],
+      "alt_taxi": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.32805347
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.26067721
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.1566218
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.04839686
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.03750019
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.02887348
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.02305682
+        },
+        {
+          "feature": "purp_shopping",
+          "importance": 0.01519556
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.01169002
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.0112097
+        }
+      ],
+      "alt_walk": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.3092017
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.22695252
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.18381221
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.04703638
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.03776471
+        },
+        {
+          "feature": "occup_retired",
+          "importance": 0.03237132
+        },
+        {
+          "feature": "occup_student",
+          "importance": 0.02236011
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.01664198
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.01401444
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.01204536
+        }
+      ]
+    }
+  },
+  "elasticity": [
+    {
+      "extra_delay_minutes": 0,
+      "car_probability": 0.203306,
+      "moto_probability": 0.131373,
+      "alternative_probability": 0.665321
+    },
+    {
+      "extra_delay_minutes": 5,
+      "car_probability": 0.212834,
+      "moto_probability": 0.131967,
+      "alternative_probability": 0.655199
+    },
+    {
+      "extra_delay_minutes": 10,
+      "car_probability": 0.224747,
+      "moto_probability": 0.148292,
+      "alternative_probability": 0.626962
+    },
+    {
+      "extra_delay_minutes": 15,
+      "car_probability": 0.212675,
+      "moto_probability": 0.163389,
+      "alternative_probability": 0.623936
+    },
+    {
+      "extra_delay_minutes": 20,
+      "car_probability": 0.238809,
+      "moto_probability": 0.179493,
+      "alternative_probability": 0.581698
+    },
+    {
+      "extra_delay_minutes": 25,
+      "car_probability": 0.247024,
+      "moto_probability": 0.182889,
+      "alternative_probability": 0.570087
+    },
+    {
+      "extra_delay_minutes": 30,
+      "car_probability": 0.243478,
+      "moto_probability": 0.201951,
+      "alternative_probability": 0.554571
+    },
+    {
+      "extra_delay_minutes": 35,
+      "car_probability": 0.235354,
+      "moto_probability": 0.202483,
+      "alternative_probability": 0.562163
+    },
+    {
+      "extra_delay_minutes": 40,
+      "car_probability": 0.231566,
+      "moto_probability": 0.209342,
+      "alternative_probability": 0.559092
+    },
+    {
+      "extra_delay_minutes": 45,
+      "car_probability": 0.235255,
+      "moto_probability": 0.207973,
+      "alternative_probability": 0.556772
+    },
+    {
+      "extra_delay_minutes": 50,
+      "car_probability": 0.234725,
+      "moto_probability": 0.210356,
+      "alternative_probability": 0.554919
+    },
+    {
+      "extra_delay_minutes": 55,
+      "car_probability": 0.23481,
+      "moto_probability": 0.210823,
+      "alternative_probability": 0.554367
+    },
+    {
+      "extra_delay_minutes": 60,
+      "car_probability": 0.234804,
+      "moto_probability": 0.210866,
+      "alternative_probability": 0.554331
+    }
+  ],
+  "partial_dependence": [
+    {
+      "distance_km": 0.208,
+      "ebike_probability": 0.107705
+    },
+    {
+      "distance_km": 0.887,
+      "ebike_probability": 0.152808
+    },
+    {
+      "distance_km": 1.566,
+      "ebike_probability": 0.149793
+    },
+    {
+      "distance_km": 2.245,
+      "ebike_probability": 0.135119
+    },
+    {
+      "distance_km": 2.924,
+      "ebike_probability": 0.142385
+    },
+    {
+      "distance_km": 3.603,
+      "ebike_probability": 0.12625
+    },
+    {
+      "distance_km": 4.281,
+      "ebike_probability": 0.135573
+    },
+    {
+      "distance_km": 4.96,
+      "ebike_probability": 0.13466
+    },
+    {
+      "distance_km": 5.639,
+      "ebike_probability": 0.13134
+    },
+    {
+      "distance_km": 6.318,
+      "ebike_probability": 0.122866
+    },
+    {
+      "distance_km": 6.997,
+      "ebike_probability": 0.121691
+    },
+    {
+      "distance_km": 7.676,
+      "ebike_probability": 0.110993
+    },
+    {
+      "distance_km": 8.355,
+      "ebike_probability": 0.131419
+    },
+    {
+      "distance_km": 9.034,
+      "ebike_probability": 0.131764
+    },
+    {
+      "distance_km": 9.713,
+      "ebike_probability": 0.127442
+    },
+    {
+      "distance_km": 10.392,
+      "ebike_probability": 0.124541
+    },
+    {
+      "distance_km": 11.071,
+      "ebike_probability": 0.119157
+    },
+    {
+      "distance_km": 11.75,
+      "ebike_probability": 0.116472
+    },
+    {
+      "distance_km": 12.429,
+      "ebike_probability": 0.090302
+    },
+    {
+      "distance_km": 13.108,
+      "ebike_probability": 0.096828
+    }
+  ],
+  "monte_carlo": {
+    "normal": {
+      "iterations": 500,
+      "affected_users": 22007,
+      "ban_car_fallback": false,
+      "modes": [
+        {
+          "mode": "car",
+          "mean_users": 4147.03,
+          "mean_percentage": 18.84,
+          "p05_users": 4064.95,
+          "p95_users": 4234.05
+        },
+        {
+          "mode": "bus",
+          "mean_users": 3447.44,
+          "mean_percentage": 15.67,
+          "p05_users": 3363.85,
+          "p95_users": 3528.05
+        },
+        {
+          "mode": "ltrain",
+          "mean_users": 3189.83,
+          "mean_percentage": 14.49,
+          "p05_users": 3111.95,
+          "p95_users": 3267.05
+        },
+        {
+          "mode": "taxi",
+          "mean_users": 2977.94,
+          "mean_percentage": 13.53,
+          "p05_users": 2898.95,
+          "p95_users": 3054.1
+        },
+        {
+          "mode": "ebike",
+          "mean_users": 2944.47,
+          "mean_percentage": 13.38,
+          "p05_users": 2870.95,
+          "p95_users": 3022.0
+        },
+        {
+          "mode": "bike",
+          "mean_users": 2901.65,
+          "mean_percentage": 13.19,
+          "p05_users": 2830.0,
+          "p95_users": 2978.05
+        },
+        {
+          "mode": "walk",
+          "mean_users": 2398.64,
+          "mean_percentage": 10.9,
+          "p05_users": 2325.0,
+          "p95_users": 2468.0
+        }
+      ]
+    },
+    "total_ice_ban": {
+      "iterations": 500,
+      "affected_users": 22007,
+      "ban_car_fallback": true,
+      "modes": [
+        {
+          "mode": "bus",
+          "mean_users": 4265.72,
+          "mean_percentage": 19.38,
+          "p05_users": 4185.0,
+          "p95_users": 4358.0
+        },
+        {
+          "mode": "ltrain",
+          "mean_users": 3863.57,
+          "mean_percentage": 17.56,
+          "p05_users": 3780.95,
+          "p95_users": 3954.05
+        },
+        {
+          "mode": "taxi",
+          "mean_users": 3704.46,
+          "mean_percentage": 16.83,
+          "p05_users": 3627.0,
+          "p95_users": 3789.0
+        },
+        {
+          "mode": "ebike",
+          "mean_users": 3617.11,
+          "mean_percentage": 16.44,
+          "p05_users": 3540.0,
+          "p95_users": 3698.0
+        },
+        {
+          "mode": "bike",
+          "mean_users": 3546.2,
+          "mean_percentage": 16.11,
+          "p05_users": 3465.95,
+          "p95_users": 3631.1
+        },
+        {
+          "mode": "walk",
+          "mean_users": 3009.84,
+          "mean_percentage": 13.68,
+          "p05_users": 2927.0,
+          "p95_users": 3089.0
+        },
+        {
+          "mode": "car",
+          "mean_users": 0.09,
+          "mean_percentage": 0.0,
+          "p05_users": 0.0,
+          "p95_users": 1.0
+        }
+      ]
+    }
+  },
+  "shap": {
+    "summary_url": "/data/model-lab/models/decision_tree/shap_ebike_summary_decision_tree.png",
+    "distance_dependence_url": "/data/model-lab/models/decision_tree/shap_ebike_distance_decision_tree.png",
+    "error": null
+  }
+}

@@ -1,0 +1,1967 @@
+{
+  "run_id": "083d0300d1954a6f84332a9edda1561d",
+  "source_type": "database",
+  "actual_source": "database",
+  "row_count": 26106,
+  "features": {
+    "numerical": [
+      "OD_dist",
+      "travtime",
+      "dist_to_pub"
+    ],
+    "categorical": [
+      "age",
+      "occup",
+      "gender",
+      "purp",
+      "status",
+      "own"
+    ],
+    "fallback_targets": [
+      "alt_car",
+      "alt_ebike",
+      "alt_bike",
+      "alt_bus",
+      "alt_ltrain",
+      "alt_taxi",
+      "alt_walk"
+    ]
+  },
+  "selected_default_model": "random_forest",
+  "models": {
+    "random_forest": {
+      "score": 0.5727599939255477,
+      "metrics": {
+        "current_mode": {
+          "bike": {
+            "precision": 0.6844660194174758,
+            "recall": 0.55078125,
+            "f1-score": 0.6103896103896104,
+            "support": 256.0
+          },
+          "bus": {
+            "precision": 0.32432432432432434,
+            "recall": 0.13953488372093023,
+            "f1-score": 0.1951219512195122,
+            "support": 86.0
+          },
+          "car": {
+            "precision": 0.8495713172252534,
+            "recall": 0.7763532763532763,
+            "f1-score": 0.8113137327874953,
+            "support": 1404.0
+          },
+          "ebike": {
+            "precision": 0.6086956521739131,
+            "recall": 0.5150501672240803,
+            "f1-score": 0.5579710144927537,
+            "support": 299.0
+          },
+          "moto": {
+            "precision": 0.8169856459330144,
+            "recall": 0.9112741827885257,
+            "f1-score": 0.8615578681803847,
+            "support": 2998.0
+          },
+          "taxi": {
+            "precision": 0.2916666666666667,
+            "recall": 0.10294117647058823,
+            "f1-score": 0.15217391304347827,
+            "support": 68.0
+          },
+          "tram": {
+            "precision": 0.0,
+            "recall": 0.0,
+            "f1-score": 0.0,
+            "support": 2.0
+          },
+          "walk": {
+            "precision": 0.64,
+            "recall": 0.44036697247706424,
+            "f1-score": 0.5217391304347826,
+            "support": 109.0
+          },
+          "accuracy": 0.8012255840674071,
+          "macro avg": {
+            "precision": 0.5269637032175809,
+            "recall": 0.4295377386293081,
+            "f1-score": 0.46378340256850215,
+            "support": 5222.0
+          },
+          "weighted avg": {
+            "precision": 0.7883626239156516,
+            "recall": 0.8012255840674071,
+            "f1-score": 0.7907173348028985,
+            "support": 5222.0
+          }
+        },
+        "fallback_modes": {
+          "alt_car": {
+            "precision": 0.8690516368545393,
+            "recall": 0.8667115449343655,
+            "f1-score": 0.8678800134816312,
+            "support": 2971.0
+          },
+          "alt_ebike": {
+            "precision": 0.711864406779661,
+            "recall": 0.5242718446601942,
+            "f1-score": 0.6038338658146964,
+            "support": 1442.0
+          },
+          "alt_bike": {
+            "precision": 0.7615324472243941,
+            "recall": 0.5874547647768396,
+            "f1-score": 0.6632618318011576,
+            "support": 1658.0
+          },
+          "alt_bus": {
+            "precision": 0.7593865679534638,
+            "recall": 0.6654309545875811,
+            "f1-score": 0.7093109409730798,
+            "support": 2158.0
+          },
+          "alt_ltrain": {
+            "precision": 0.6727438468550593,
+            "recall": 0.5037542662116041,
+            "f1-score": 0.5761124121779859,
+            "support": 1465.0
+          },
+          "alt_taxi": {
+            "precision": 0.7559171597633136,
+            "recall": 0.592463768115942,
+            "f1-score": 0.6642833929151771,
+            "support": 1725.0
+          },
+          "alt_walk": {
+            "precision": 0.8029556650246306,
+            "recall": 0.6010324483775811,
+            "f1-score": 0.6874736398144243,
+            "support": 1356.0
+          },
+          "micro avg": {
+            "precision": 0.7801857585139319,
+            "recall": 0.650958904109589,
+            "f1-score": 0.7097379875394726,
+            "support": 12775.0
+          },
+          "macro avg": {
+            "precision": 0.7619216757792947,
+            "recall": 0.620159941666301,
+            "f1-score": 0.6817365852825932,
+            "support": 12775.0
+          },
+          "weighted avg": {
+            "precision": 0.7740252537628575,
+            "recall": 0.650958904109589,
+            "f1-score": 0.7046331800009968,
+            "support": 12775.0
+          },
+          "samples avg": {
+            "precision": 0.6052794039867957,
+            "recall": 0.5733608724991336,
+            "f1-score": 0.5708148398688422,
+            "support": 12775.0
+          }
+        }
+      },
+      "feature_importance": {
+        "current_mode": [
+          {
+            "feature": "OD_dist",
+            "importance": 0.18097959075909914
+          },
+          {
+            "feature": "travtime",
+            "importance": 0.10768517218570987
+          },
+          {
+            "feature": "dist_to_pub",
+            "importance": 0.10247979235424494
+          },
+          {
+            "feature": "status_permanent",
+            "importance": 0.09511528907321805
+          },
+          {
+            "feature": "status_long_stay",
+            "importance": 0.0731847353617251
+          },
+          {
+            "feature": "purp_education",
+            "importance": 0.06518790828239306
+          },
+          {
+            "feature": "age_18_25",
+            "importance": 0.05253885251442039
+          },
+          {
+            "feature": "own_rent",
+            "importance": 0.04504608635275723
+          },
+          {
+            "feature": "purp_visit",
+            "importance": 0.027397981233369093
+          },
+          {
+            "feature": "occup_private",
+            "importance": 0.022055400813468923
+          },
+          {
+            "feature": "age_56_75",
+            "importance": 0.021305788731415254
+          },
+          {
+            "feature": "occup_student",
+            "importance": 0.01798901952795613
+          },
+          {
+            "feature": "occup_state",
+            "importance": 0.0176331939076886
+          },
+          {
+            "feature": "purp_work",
+            "importance": 0.01719793596867327
+          },
+          {
+            "feature": "own_owner",
+            "importance": 0.016493872362415764
+          },
+          {
+            "feature": "gender_male",
+            "importance": 0.015584621548974154
+          },
+          {
+            "feature": "age_36_55",
+            "importance": 0.01497536500874508
+          },
+          {
+            "feature": "occup_retired",
+            "importance": 0.014884029649130036
+          },
+          {
+            "feature": "gender_female",
+            "importance": 0.014664275083873914
+          },
+          {
+            "feature": "own_parent_house",
+            "importance": 0.01239503325677845
+          }
+        ],
+        "fallback_modes": {
+          "alt_car": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.2909082066336586
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.20715142058064182
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.13815160821390143
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.052482655517180135
+            },
+            {
+              "feature": "own_rent",
+              "importance": 0.026576177657021978
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.025303964916912856
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.02311427752137479
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.01840935538255313
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.018012793493739167
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.016384820000321057
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.01616391042006955
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.014435287044985543
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.013356350357105634
+            },
+            {
+              "feature": "occup_retired",
+              "importance": 0.013311802082227013
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.01327408624591808
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.013035237306389889
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.012667329319958197
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.012332780203095653
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.012242517335285762
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.011906840411420348
+            }
+          ],
+          "alt_ebike": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.3521492978577848
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.19071399918590282
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.16276334310815146
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.018638572134101694
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.016418457012638346
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.016385851924763512
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.016279611226314328
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.015906205781136835
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.015702988664026956
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.015618662333247709
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.015182666605905358
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.015093363110738202
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.014899029224132566
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.014204674695024587
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.013492968161918532
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.013408922186126942
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.013161292551498024
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.010750607937805788
+            },
+            {
+              "feature": "occup_student",
+              "importance": 0.00991494669795353
+            },
+            {
+              "feature": "own_rent",
+              "importance": 0.009451202798438106
+            }
+          ],
+          "alt_bike": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.35829052935058414
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.19183657293065826
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.15443218780345672
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.020899622369473063
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.017966430405342435
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.0179654533169147
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.017897114325620595
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.0176165074511882
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.015245006504859934
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.015231683028638306
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.014076068974990016
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.013720033274613477
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.013556596991733517
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.013084165519183157
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.012840269933041545
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.01263013825682847
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.012584351920264079
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.012020355801665463
+            },
+            {
+              "feature": "own_rent",
+              "importance": 0.010192238865838013
+            },
+            {
+              "feature": "purp_shopping",
+              "importance": 0.009790054659466332
+            }
+          ],
+          "alt_bus": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.3623421298954602
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.20349693536718774
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.1535133921724585
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.019328402096127174
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.01773879335119771
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.016514991511081382
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.016106182704217535
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.015823304606192207
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.014652293088655122
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.014460851587155347
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.014404251194177462
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.013235540039180739
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.01246152719923048
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.012438372296150928
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.012270095862164123
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.012010857583882572
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.011872421435490409
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.011681306705446325
+            },
+            {
+              "feature": "purp_shopping",
+              "importance": 0.010884623726943798
+            },
+            {
+              "feature": "occup_student",
+              "importance": 0.010535419527680712
+            }
+          ],
+          "alt_ltrain": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.36355588249929716
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.19495398922744622
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.15820893611554745
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.019332035103766215
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.01611447542309469
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.01605130506089384
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.015320987036104516
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.015016944635689028
+            },
+            {
+              "feature": "purp_shopping",
+              "importance": 0.014520549194670433
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.014469926753826507
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.013346295907723514
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.013270537091600127
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.013088488465638728
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.012902937734296193
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.012308144015910879
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.012182453051510913
+            },
+            {
+              "feature": "purp_leisure",
+              "importance": 0.011827269759030836
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.011637623783492335
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.011301610553063654
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.010964639883380424
+            }
+          ],
+          "alt_taxi": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.35728005601111096
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.20036229007435077
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.1582728344370663
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.02104949392016406
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.018573249059100377
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.017261169758170613
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.016888265742833128
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.016762634306819894
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.015607929688607185
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.014695228628429315
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.013953220119479347
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.013880606432658538
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.013624373089659723
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.013358836540754699
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.013016847341585624
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.01273302252375192
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.011302428376697926
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.011270647990445004
+            },
+            {
+              "feature": "own_rent",
+              "importance": 0.010117941599679662
+            },
+            {
+              "feature": "occup_student",
+              "importance": 0.009327623264589644
+            }
+          ],
+          "alt_walk": [
+            {
+              "feature": "OD_dist",
+              "importance": 0.34412131463939943
+            },
+            {
+              "feature": "dist_to_pub",
+              "importance": 0.19789461468942615
+            },
+            {
+              "feature": "travtime",
+              "importance": 0.16060520835552017
+            },
+            {
+              "feature": "occup_private",
+              "importance": 0.025049124919788373
+            },
+            {
+              "feature": "purp_work",
+              "importance": 0.020665617653819187
+            },
+            {
+              "feature": "own_parent_house",
+              "importance": 0.018694518668555732
+            },
+            {
+              "feature": "own_owner",
+              "importance": 0.017940047967377252
+            },
+            {
+              "feature": "purp_education",
+              "importance": 0.017621053156155645
+            },
+            {
+              "feature": "gender_female",
+              "importance": 0.016136097290658707
+            },
+            {
+              "feature": "gender_male",
+              "importance": 0.015440544267848837
+            },
+            {
+              "feature": "age_26_35",
+              "importance": 0.013975356684374853
+            },
+            {
+              "feature": "age_36_55",
+              "importance": 0.01306306141554097
+            },
+            {
+              "feature": "age_18_25",
+              "importance": 0.01262334940732289
+            },
+            {
+              "feature": "status_permanent",
+              "importance": 0.012562494550832167
+            },
+            {
+              "feature": "occup_fdi",
+              "importance": 0.012196785174498022
+            },
+            {
+              "feature": "occup_state",
+              "importance": 0.01192891638174162
+            },
+            {
+              "feature": "status_long_stay",
+              "importance": 0.01133837263845495
+            },
+            {
+              "feature": "purp_visit",
+              "importance": 0.010266711644016078
+            },
+            {
+              "feature": "occup_student",
+              "importance": 0.009354075133436883
+            },
+            {
+              "feature": "own_rent",
+              "importance": 0.009190451024506422
+            }
+          ]
+        }
+      },
+      "artifacts": {
+        "current_mode": "current_mode_random_forest.joblib",
+        "fallback_mode": "fallback_mode_random_forest.joblib"
+      }
+    }
+  },
+  "metrics": {
+    "current_mode": {
+      "bike": {
+        "precision": 0.6844660194174758,
+        "recall": 0.55078125,
+        "f1-score": 0.6103896103896104,
+        "support": 256.0
+      },
+      "bus": {
+        "precision": 0.32432432432432434,
+        "recall": 0.13953488372093023,
+        "f1-score": 0.1951219512195122,
+        "support": 86.0
+      },
+      "car": {
+        "precision": 0.8495713172252534,
+        "recall": 0.7763532763532763,
+        "f1-score": 0.8113137327874953,
+        "support": 1404.0
+      },
+      "ebike": {
+        "precision": 0.6086956521739131,
+        "recall": 0.5150501672240803,
+        "f1-score": 0.5579710144927537,
+        "support": 299.0
+      },
+      "moto": {
+        "precision": 0.8169856459330144,
+        "recall": 0.9112741827885257,
+        "f1-score": 0.8615578681803847,
+        "support": 2998.0
+      },
+      "taxi": {
+        "precision": 0.2916666666666667,
+        "recall": 0.10294117647058823,
+        "f1-score": 0.15217391304347827,
+        "support": 68.0
+      },
+      "tram": {
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1-score": 0.0,
+        "support": 2.0
+      },
+      "walk": {
+        "precision": 0.64,
+        "recall": 0.44036697247706424,
+        "f1-score": 0.5217391304347826,
+        "support": 109.0
+      },
+      "accuracy": 0.8012255840674071,
+      "macro avg": {
+        "precision": 0.5269637032175809,
+        "recall": 0.4295377386293081,
+        "f1-score": 0.46378340256850215,
+        "support": 5222.0
+      },
+      "weighted avg": {
+        "precision": 0.7883626239156516,
+        "recall": 0.8012255840674071,
+        "f1-score": 0.7907173348028985,
+        "support": 5222.0
+      }
+    },
+    "fallback_modes": {
+      "alt_car": {
+        "precision": 0.8690516368545393,
+        "recall": 0.8667115449343655,
+        "f1-score": 0.8678800134816312,
+        "support": 2971.0
+      },
+      "alt_ebike": {
+        "precision": 0.711864406779661,
+        "recall": 0.5242718446601942,
+        "f1-score": 0.6038338658146964,
+        "support": 1442.0
+      },
+      "alt_bike": {
+        "precision": 0.7615324472243941,
+        "recall": 0.5874547647768396,
+        "f1-score": 0.6632618318011576,
+        "support": 1658.0
+      },
+      "alt_bus": {
+        "precision": 0.7593865679534638,
+        "recall": 0.6654309545875811,
+        "f1-score": 0.7093109409730798,
+        "support": 2158.0
+      },
+      "alt_ltrain": {
+        "precision": 0.6727438468550593,
+        "recall": 0.5037542662116041,
+        "f1-score": 0.5761124121779859,
+        "support": 1465.0
+      },
+      "alt_taxi": {
+        "precision": 0.7559171597633136,
+        "recall": 0.592463768115942,
+        "f1-score": 0.6642833929151771,
+        "support": 1725.0
+      },
+      "alt_walk": {
+        "precision": 0.8029556650246306,
+        "recall": 0.6010324483775811,
+        "f1-score": 0.6874736398144243,
+        "support": 1356.0
+      },
+      "micro avg": {
+        "precision": 0.7801857585139319,
+        "recall": 0.650958904109589,
+        "f1-score": 0.7097379875394726,
+        "support": 12775.0
+      },
+      "macro avg": {
+        "precision": 0.7619216757792947,
+        "recall": 0.620159941666301,
+        "f1-score": 0.6817365852825932,
+        "support": 12775.0
+      },
+      "weighted avg": {
+        "precision": 0.7740252537628575,
+        "recall": 0.650958904109589,
+        "f1-score": 0.7046331800009968,
+        "support": 12775.0
+      },
+      "samples avg": {
+        "precision": 0.6052794039867957,
+        "recall": 0.5733608724991336,
+        "f1-score": 0.5708148398688422,
+        "support": 12775.0
+      }
+    }
+  },
+  "feature_importance": {
+    "current_mode": [
+      {
+        "feature": "OD_dist",
+        "importance": 0.18097959075909914
+      },
+      {
+        "feature": "travtime",
+        "importance": 0.10768517218570987
+      },
+      {
+        "feature": "dist_to_pub",
+        "importance": 0.10247979235424494
+      },
+      {
+        "feature": "status_permanent",
+        "importance": 0.09511528907321805
+      },
+      {
+        "feature": "status_long_stay",
+        "importance": 0.0731847353617251
+      },
+      {
+        "feature": "purp_education",
+        "importance": 0.06518790828239306
+      },
+      {
+        "feature": "age_18_25",
+        "importance": 0.05253885251442039
+      },
+      {
+        "feature": "own_rent",
+        "importance": 0.04504608635275723
+      },
+      {
+        "feature": "purp_visit",
+        "importance": 0.027397981233369093
+      },
+      {
+        "feature": "occup_private",
+        "importance": 0.022055400813468923
+      },
+      {
+        "feature": "age_56_75",
+        "importance": 0.021305788731415254
+      },
+      {
+        "feature": "occup_student",
+        "importance": 0.01798901952795613
+      },
+      {
+        "feature": "occup_state",
+        "importance": 0.0176331939076886
+      },
+      {
+        "feature": "purp_work",
+        "importance": 0.01719793596867327
+      },
+      {
+        "feature": "own_owner",
+        "importance": 0.016493872362415764
+      },
+      {
+        "feature": "gender_male",
+        "importance": 0.015584621548974154
+      },
+      {
+        "feature": "age_36_55",
+        "importance": 0.01497536500874508
+      },
+      {
+        "feature": "occup_retired",
+        "importance": 0.014884029649130036
+      },
+      {
+        "feature": "gender_female",
+        "importance": 0.014664275083873914
+      },
+      {
+        "feature": "own_parent_house",
+        "importance": 0.01239503325677845
+      }
+    ],
+    "fallback_modes": {
+      "alt_car": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.2909082066336586
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.20715142058064182
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.13815160821390143
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.052482655517180135
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.026576177657021978
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.025303964916912856
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.02311427752137479
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.01840935538255313
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.018012793493739167
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.016384820000321057
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.01616391042006955
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.014435287044985543
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.013356350357105634
+        },
+        {
+          "feature": "occup_retired",
+          "importance": 0.013311802082227013
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.01327408624591808
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.013035237306389889
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.012667329319958197
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.012332780203095653
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.012242517335285762
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.011906840411420348
+        }
+      ],
+      "alt_ebike": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.3521492978577848
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.19071399918590282
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.16276334310815146
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.018638572134101694
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.016418457012638346
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.016385851924763512
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.016279611226314328
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.015906205781136835
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.015702988664026956
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.015618662333247709
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.015182666605905358
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.015093363110738202
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.014899029224132566
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.014204674695024587
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.013492968161918532
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.013408922186126942
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.013161292551498024
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.010750607937805788
+        },
+        {
+          "feature": "occup_student",
+          "importance": 0.00991494669795353
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.009451202798438106
+        }
+      ],
+      "alt_bike": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.35829052935058414
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.19183657293065826
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.15443218780345672
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.020899622369473063
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.017966430405342435
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.0179654533169147
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.017897114325620595
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.0176165074511882
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.015245006504859934
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.015231683028638306
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.014076068974990016
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.013720033274613477
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.013556596991733517
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.013084165519183157
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.012840269933041545
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.01263013825682847
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.012584351920264079
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.012020355801665463
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.010192238865838013
+        },
+        {
+          "feature": "purp_shopping",
+          "importance": 0.009790054659466332
+        }
+      ],
+      "alt_bus": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.3623421298954602
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.20349693536718774
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.1535133921724585
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.019328402096127174
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.01773879335119771
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.016514991511081382
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.016106182704217535
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.015823304606192207
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.014652293088655122
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.014460851587155347
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.014404251194177462
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.013235540039180739
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.01246152719923048
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.012438372296150928
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.012270095862164123
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.012010857583882572
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.011872421435490409
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.011681306705446325
+        },
+        {
+          "feature": "purp_shopping",
+          "importance": 0.010884623726943798
+        },
+        {
+          "feature": "occup_student",
+          "importance": 0.010535419527680712
+        }
+      ],
+      "alt_ltrain": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.36355588249929716
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.19495398922744622
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.15820893611554745
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.019332035103766215
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.01611447542309469
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.01605130506089384
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.015320987036104516
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.015016944635689028
+        },
+        {
+          "feature": "purp_shopping",
+          "importance": 0.014520549194670433
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.014469926753826507
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.013346295907723514
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.013270537091600127
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.013088488465638728
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.012902937734296193
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.012308144015910879
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.012182453051510913
+        },
+        {
+          "feature": "purp_leisure",
+          "importance": 0.011827269759030836
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.011637623783492335
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.011301610553063654
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.010964639883380424
+        }
+      ],
+      "alt_taxi": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.35728005601111096
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.20036229007435077
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.1582728344370663
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.02104949392016406
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.018573249059100377
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.017261169758170613
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.016888265742833128
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.016762634306819894
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.015607929688607185
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.014695228628429315
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.013953220119479347
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.013880606432658538
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.013624373089659723
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.013358836540754699
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.013016847341585624
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.01273302252375192
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.011302428376697926
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.011270647990445004
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.010117941599679662
+        },
+        {
+          "feature": "occup_student",
+          "importance": 0.009327623264589644
+        }
+      ],
+      "alt_walk": [
+        {
+          "feature": "OD_dist",
+          "importance": 0.34412131463939943
+        },
+        {
+          "feature": "dist_to_pub",
+          "importance": 0.19789461468942615
+        },
+        {
+          "feature": "travtime",
+          "importance": 0.16060520835552017
+        },
+        {
+          "feature": "occup_private",
+          "importance": 0.025049124919788373
+        },
+        {
+          "feature": "purp_work",
+          "importance": 0.020665617653819187
+        },
+        {
+          "feature": "own_parent_house",
+          "importance": 0.018694518668555732
+        },
+        {
+          "feature": "own_owner",
+          "importance": 0.017940047967377252
+        },
+        {
+          "feature": "purp_education",
+          "importance": 0.017621053156155645
+        },
+        {
+          "feature": "gender_female",
+          "importance": 0.016136097290658707
+        },
+        {
+          "feature": "gender_male",
+          "importance": 0.015440544267848837
+        },
+        {
+          "feature": "age_26_35",
+          "importance": 0.013975356684374853
+        },
+        {
+          "feature": "age_36_55",
+          "importance": 0.01306306141554097
+        },
+        {
+          "feature": "age_18_25",
+          "importance": 0.01262334940732289
+        },
+        {
+          "feature": "status_permanent",
+          "importance": 0.012562494550832167
+        },
+        {
+          "feature": "occup_fdi",
+          "importance": 0.012196785174498022
+        },
+        {
+          "feature": "occup_state",
+          "importance": 0.01192891638174162
+        },
+        {
+          "feature": "status_long_stay",
+          "importance": 0.01133837263845495
+        },
+        {
+          "feature": "purp_visit",
+          "importance": 0.010266711644016078
+        },
+        {
+          "feature": "occup_student",
+          "importance": 0.009354075133436883
+        },
+        {
+          "feature": "own_rent",
+          "importance": 0.009190451024506422
+        }
+      ]
+    }
+  },
+  "migration": {
+    "normal": [
+      {
+        "mode": "car",
+        "expected_users": 5705.069264430895,
+        "expected_percentage": 25.92388451143225
+      },
+      {
+        "mode": "bus",
+        "expected_users": 3866.6397881290727,
+        "expected_percentage": 17.570044931744775
+      },
+      {
+        "mode": "taxi",
+        "expected_users": 2740.958331011519,
+        "expected_percentage": 12.454938569598397
+      },
+      {
+        "mode": "ltrain",
+        "expected_users": 2718.9285064712185,
+        "expected_percentage": 12.354834854688137
+      },
+      {
+        "mode": "bike",
+        "expected_users": 2624.819684140061,
+        "expected_percentage": 11.927203544963245
+      },
+      {
+        "mode": "ebike",
+        "expected_users": 2476.7348603785804,
+        "expected_percentage": 11.254304813825511
+      },
+      {
+        "mode": "walk",
+        "expected_users": 1873.8495654386827,
+        "expected_percentage": 8.514788773747819
+      }
+    ],
+    "total_ice_ban": [
+      {
+        "mode": "bus",
+        "expected_users": 5172.628459230012,
+        "expected_percentage": 23.50446884732136
+      },
+      {
+        "mode": "taxi",
+        "expected_users": 3802.5098735840934,
+        "expected_percentage": 17.278638040551158
+      },
+      {
+        "mode": "ltrain",
+        "expected_users": 3581.656105975734,
+        "expected_percentage": 16.275076593700796
+      },
+      {
+        "mode": "bike",
+        "expected_users": 3484.4341757534453,
+        "expected_percentage": 15.8332992945583
+      },
+      {
+        "mode": "ebike",
+        "expected_users": 3355.796131492556,
+        "expected_percentage": 15.248766899134623
+      },
+      {
+        "mode": "walk",
+        "expected_users": 2599.905069318631,
+        "expected_percentage": 11.813991317847188
+      },
+      {
+        "mode": "car",
+        "expected_users": 10.070184645565952,
+        "expected_percentage": 0.045759006886744905
+      }
+    ]
+  },
+  "monte_carlo": {
+    "normal": {
+      "iterations": 500,
+      "affected_users": 22007,
+      "ban_car_fallback": false,
+      "modes": [
+        {
+          "mode": "car",
+          "mean_users": 5706.432,
+          "mean_percentage": 25.930076793747443,
+          "p05_users": 5613.95,
+          "p95_users": 5797.05
+        },
+        {
+          "mode": "bus",
+          "mean_users": 3868.362,
+          "mean_percentage": 17.5778706775117,
+          "p05_users": 3787.95,
+          "p95_users": 3950.0
+        },
+        {
+          "mode": "taxi",
+          "mean_users": 2738.514,
+          "mean_percentage": 12.443831508156496,
+          "p05_users": 2660.0,
+          "p95_users": 2811.05
+        },
+        {
+          "mode": "ltrain",
+          "mean_users": 2715.266,
+          "mean_percentage": 12.338192393329397,
+          "p05_users": 2642.0,
+          "p95_users": 2783.0
+        },
+        {
+          "mode": "bike",
+          "mean_users": 2625.652,
+          "mean_percentage": 11.930985595492343,
+          "p05_users": 2557.9,
+          "p95_users": 2701.05
+        },
+        {
+          "mode": "ebike",
+          "mean_users": 2478.298,
+          "mean_percentage": 11.261407733902848,
+          "p05_users": 2408.95,
+          "p95_users": 2543.1499999999996
+        },
+        {
+          "mode": "walk",
+          "mean_users": 1874.476,
+          "mean_percentage": 8.517635297859773,
+          "p05_users": 1814.0,
+          "p95_users": 1934.05
+        }
+      ]
+    },
+    "total_ice_ban": {
+      "iterations": 500,
+      "affected_users": 22007,
+      "ban_car_fallback": true,
+      "modes": [
+        {
+          "mode": "bus",
+          "mean_users": 5173.2,
+          "mean_percentage": 23.507065933566594,
+          "p05_users": 5086.0,
+          "p95_users": 5258.1
+        },
+        {
+          "mode": "taxi",
+          "mean_users": 3797.998,
+          "mean_percentage": 17.25813604762121,
+          "p05_users": 3716.95,
+          "p95_users": 3879.0
+        },
+        {
+          "mode": "ltrain",
+          "mean_users": 3581.184,
+          "mean_percentage": 16.272931340028173,
+          "p05_users": 3505.95,
+          "p95_users": 3654.1499999999996
+        },
+        {
+          "mode": "bike",
+          "mean_users": 3487.166,
+          "mean_percentage": 15.845712727768438,
+          "p05_users": 3408.0,
+          "p95_users": 3561.05
+        },
+        {
+          "mode": "ebike",
+          "mean_users": 3356.234,
+          "mean_percentage": 15.250756577452627,
+          "p05_users": 3280.95,
+          "p95_users": 3434.0
+        },
+        {
+          "mode": "walk",
+          "mean_users": 2601.028,
+          "mean_percentage": 11.819093924660335,
+          "p05_users": 2531.0,
+          "p95_users": 2674.05
+        },
+        {
+          "mode": "car",
+          "mean_users": 10.19,
+          "mean_percentage": 0.04630344890262189,
+          "p05_users": 5.0,
+          "p95_users": 16.0
+        }
+      ]
+    }
+  },
+  "travel_time_elasticity": [
+    {
+      "extra_delay_minutes": 0,
+      "car_probability": 0.3128543079177746,
+      "moto_probability": 0.6511266313773127,
+      "alternative_probability": 0.036019060704912675
+    },
+    {
+      "extra_delay_minutes": 5,
+      "car_probability": 0.3181825463283666,
+      "moto_probability": 0.6207479514104298,
+      "alternative_probability": 0.061069502261203557
+    },
+    {
+      "extra_delay_minutes": 10,
+      "car_probability": 0.3229896402508913,
+      "moto_probability": 0.6007398993215894,
+      "alternative_probability": 0.07627046042751928
+    },
+    {
+      "extra_delay_minutes": 15,
+      "car_probability": 0.3345955746649166,
+      "moto_probability": 0.5860500628060711,
+      "alternative_probability": 0.0793543625290124
+    },
+    {
+      "extra_delay_minutes": 20,
+      "car_probability": 0.3352908079997646,
+      "moto_probability": 0.5777706196787336,
+      "alternative_probability": 0.08693857232150193
+    },
+    {
+      "extra_delay_minutes": 25,
+      "car_probability": 0.3394623714704288,
+      "moto_probability": 0.5707433213143259,
+      "alternative_probability": 0.08979430721524528
+    },
+    {
+      "extra_delay_minutes": 30,
+      "car_probability": 0.34155261548369725,
+      "moto_probability": 0.5651648671320861,
+      "alternative_probability": 0.09328251738421667
+    },
+    {
+      "extra_delay_minutes": 35,
+      "car_probability": 0.34310394006224043,
+      "moto_probability": 0.5597569183947221,
+      "alternative_probability": 0.09713914154303749
+    },
+    {
+      "extra_delay_minutes": 40,
+      "car_probability": 0.3428576547893727,
+      "moto_probability": 0.557807493883142,
+      "alternative_probability": 0.09933485132748532
+    },
+    {
+      "extra_delay_minutes": 45,
+      "car_probability": 0.34268770886307653,
+      "moto_probability": 0.5567682370792064,
+      "alternative_probability": 0.10054405405771705
+    },
+    {
+      "extra_delay_minutes": 50,
+      "car_probability": 0.34223285358975447,
+      "moto_probability": 0.5565319486255325,
+      "alternative_probability": 0.10123519778471302
+    },
+    {
+      "extra_delay_minutes": 55,
+      "car_probability": 0.34209835093150937,
+      "moto_probability": 0.5565005949653336,
+      "alternative_probability": 0.10140105410315703
+    },
+    {
+      "extra_delay_minutes": 60,
+      "car_probability": 0.34206290766345826,
+      "moto_probability": 0.5561325302586493,
+      "alternative_probability": 0.10180456207789246
+    }
+  ],
+  "eda": {
+    "row_count": 26106,
+    "mode_counts": [
+      {
+        "mode": "moto",
+        "count": 14988
+      },
+      {
+        "mode": "car",
+        "count": 7019
+      },
+      {
+        "mode": "ebike",
+        "count": 1493
+      },
+      {
+        "mode": "bike",
+        "count": 1281
+      },
+      {
+        "mode": "walk",
+        "count": 545
+      },
+      {
+        "mode": "bus",
+        "count": 427
+      },
+      {
+        "mode": "taxi",
+        "count": 341
+      },
+      {
+        "mode": "tram",
+        "count": 12
+      }
+    ],
+    "purpose_counts": [
+      {
+        "purpose": "work",
+        "count": 15145
+      },
+      {
+        "purpose": "education",
+        "count": 4494
+      },
+      {
+        "purpose": "visit",
+        "count": 3176
+      },
+      {
+        "purpose": "shopping",
+        "count": 1922
+      },
+      {
+        "purpose": "leisure",
+        "count": 934
+      },
+      {
+        "purpose": "caring",
+        "count": 435
+      }
+    ],
+    "affected_summary": {
+      "current_car": 7019,
+      "current_moto": 14988,
+      "total_car_users": 7019,
+      "total_moto_users": 14988,
+      "total_affected": 22007,
+      "total_respondents": 26106
+    }
+  }
+}

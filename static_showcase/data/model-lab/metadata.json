@@ -1,0 +1,55 @@
+{
+  "run_id": "static-three-model-showcase",
+  "created_at": "2026-09-10T10:17:05.761774+00:00",
+  "numerical_features": [
+    "OD_dist",
+    "travtime",
+    "dist_to_pub"
+  ],
+  "categorical_features": [
+    "age",
+    "occup",
+    "gender",
+    "purp",
+    "status",
+    "own"
+  ],
+  "alt_cols": [
+    "alt_car",
+    "alt_ebike",
+    "alt_bike",
+    "alt_bus",
+    "alt_ltrain",
+    "alt_taxi",
+    "alt_walk"
+  ],
+  "current_classes": [
+    "bike",
+    "bus",
+    "car",
+    "ebike",
+    "moto",
+    "taxi",
+    "tram",
+    "walk"
+  ],
+  "source_type": "database",
+  "actual_source": "database",
+  "row_count": 26106,
+  "random_seed": 42,
+  "n_estimators": 100,
+  "test_size": 0.2,
+  "model_types": [
+    "gradient_boosting",
+    "random_forest",
+    "decision_tree"
+  ],
+  "selected_default_model": "random_forest",
+  "source_runs": {
+    "gradient_boosting": "69e5235568e5471380c0263332a2b4f8",
+    "random_forest": "083d0300d1954a6f84332a9edda1561d",
+    "decision_tree": "d386f1918d57422b913141a9608256bd"
+  },
+  "generated_at": "2026-09-10T10:51:55.128436+00:00",
+  "github_url": "https://github.com/nhatminh743/DSE2026"
+}

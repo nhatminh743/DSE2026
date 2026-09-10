@@ -1,0 +1,210 @@
+[
+  {
+    "district_id": "001",
+    "district_name": "Ba Đình",
+    "latitude": 21.034736,
+    "longitude": 105.8378366,
+    "formatted_address": "Ba Đình, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "002",
+    "district_name": "Hoàn Kiếm",
+    "latitude": 21.0336195,
+    "longitude": 105.8495796,
+    "formatted_address": "Hoàn Kiếm, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "003",
+    "district_name": "Hai Bà Trưng",
+    "latitude": 21.0146466,
+    "longitude": 105.8510475,
+    "formatted_address": "Hai Bà Trưng, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "004",
+    "district_name": "Đống Đa",
+    "latitude": 21.0116389,
+    "longitude": 105.8216911,
+    "formatted_address": "Đống Đa, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "005",
+    "district_name": "Cầu Giấy",
+    "latitude": 21.0333967,
+    "longitude": 105.790872,
+    "formatted_address": "Cầu Giấy, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "006",
+    "district_name": "Thanh Xuân",
+    "latitude": 20.9975091,
+    "longitude": 105.802612,
+    "formatted_address": "Thanh Xuân, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "007",
+    "district_name": "Hoàng Mai",
+    "latitude": 20.9766171,
+    "longitude": 105.8701316,
+    "formatted_address": "Hoàng Mai, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "008",
+    "district_name": "Long Biên",
+    "latitude": 21.0207339,
+    "longitude": 105.8936224,
+    "formatted_address": "Long Biên, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "009",
+    "district_name": "Tây Hồ",
+    "latitude": 21.0506191,
+    "longitude": 105.8231588,
+    "formatted_address": "Tây Hồ, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "010",
+    "district_name": "Nam Từ Liêm",
+    "latitude": 20.9998356,
+    "longitude": 105.7480899,
+    "formatted_address": "Nam Từ Liêm, Tây Mỗ, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "011",
+    "district_name": "Bắc Từ Liêm",
+    "latitude": 21.0214051,
+    "longitude": 105.7644596,
+    "formatted_address": "Từ Liêm, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "012",
+    "district_name": "Hà Đông",
+    "latitude": 20.9739247,
+    "longitude": 105.776198,
+    "formatted_address": "Hà Đông, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "013",
+    "district_name": "Sơn Tây",
+    "latitude": 21.1458783,
+    "longitude": 105.488828,
+    "formatted_address": "Sơn Tây, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "014",
+    "district_name": "Ba Vì",
+    "latitude": 21.0660371,
+    "longitude": 105.348246,
+    "formatted_address": "Ba Vì, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "015",
+    "district_name": "Phúc Thọ",
+    "latitude": 21.1108475,
+    "longitude": 105.5532993,
+    "formatted_address": "Phúc Thọ, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "016",
+    "district_name": "Thạch Thất",
+    "latitude": 21.0749441,
+    "longitude": 105.5650239,
+    "formatted_address": "Thạch Thất, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "017",
+    "district_name": "Quốc Oai",
+    "latitude": 21.0092597,
+    "longitude": 105.6471178,
+    "formatted_address": "Quốc Oai, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "018",
+    "district_name": "Chương Mỹ",
+    "latitude": 20.9173367,
+    "longitude": 105.6999122,
+    "formatted_address": "Chương Mỹ, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "019",
+    "district_name": "Đan Phượng",
+    "latitude": 21.0882406,
+    "longitude": 105.6705801,
+    "formatted_address": "Đan Phượng, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "020",
+    "district_name": "Hoài Đức",
+    "latitude": 21.0617296,
+    "longitude": 105.7057792,
+    "formatted_address": "Hoài Đức, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "021",
+    "district_name": "Thanh Oai",
+    "latitude": 20.8475182,
+    "longitude": 105.7644596,
+    "formatted_address": "Thanh Oai, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "022",
+    "district_name": "Mỹ Đức",
+    "latitude": 20.6390947,
+    "longitude": 105.6999122,
+    "formatted_address": "Mỹ Đức, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "023",
+    "district_name": "Ứng Hòa",
+    "latitude": 20.6954929,
+    "longitude": 105.8407722,
+    "formatted_address": "Ứng Hòa, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "024",
+    "district_name": "Thường Tín",
+    "latitude": 20.8686746,
+    "longitude": 105.8627913,
+    "formatted_address": "Thường Tín, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "025",
+    "district_name": "Phú Xuyên",
+    "latitude": 20.7383765,
+    "longitude": 105.9083056,
+    "formatted_address": "Phú Xuyên, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  },
+  {
+    "district_id": "026",
+    "district_name": "Mê Linh",
+    "latitude": 21.1522787,
+    "longitude": 105.7292491,
+    "formatted_address": "Mê Linh, Hà Nội, Việt Nam",
+    "coordinate_source": "google_geocoding"
+  }
+]

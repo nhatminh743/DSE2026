@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transit API Tester</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+    <style>
+        body { font-family: sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; }
+        #controls { padding: 15px; background: #f8f9fa; border-bottom: 1px solid #ddd; z-index: 1000; }
+        #results { padding: 12px 15px; background: #ffffff; border-bottom: 1px solid #ddd; font-size: 14px; }
+        #map { flex-grow: 1; width: 100%; }
+        input { padding: 5px; margin-right: 10px; width: 120px; }
+        button { padding: 6px 15px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .muted { color: #666; }
+        .section-title { font-weight: 600; margin: 6px 0; }
+        .step { margin: 4px 0; }
+    </style>
+</head>
+<body>
+
+    <div id="controls">
+        <strong>Origin:</strong>
+        <input type="text" id="orig_lat" value="20.969854242827275" placeholder="Lat">
+        <input type="text" id="orig_lon" value="105.7675125024793" placeholder="Lon">
+        
+        <strong>Destination:</strong>
+        <input type="text" id="dest_lat" value="20.981176017347686" placeholder="Lat">
+        <input type="text" id="dest_lon" value="105.79517891663906" placeholder="Lon">
+
+        <strong>Mode:</strong>
+        <select id="transport_mode" style="padding: 5px; margin-right: 10px;">
+            <option value="public_transport">Public Transport (Bus/Metro)</option>
+            <option value="motorbike">Motorbike</option>
+            <option value="car">Car</option>
+        </select>
+        
+        <button onclick="fetchRoute()">Fetch Route</button>
+        <span id="status" style="margin-left: 15px; color: #555;"></span>
+    </div>
+
+    <div id="results">
+        <div><span class="section-title">Fare:</span> <span id="fare" class="muted">-</span></div>
+        <div><span class="section-title">Fare Breakdown:</span> <span id="fare_breakdown" class="muted">-</span></div>
+        <div class="section-title">Route Steps:</div>
+        <div id="steps" class="muted">No result yet.</div>
+    </div>
+
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        // 1. Initialize Map (Centered on Ho Chi Minh City)
+        const map = L.map('map').setView([10.79, 106.68], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        let currentPolyline = null;
+        let markers = [];
+
+        // 2. Decoder for Google's Encoded Polyline algorithm
+        function decodePolyline(encoded) {
+            let points = [];
+            let index = 0, len = encoded.length;
+            let lat = 0, lng = 0;
+            
+            while (index < len) {
+                let b, shift = 0, result = 0;
+                do {
+                    b = encoded.charCodeAt(index++) - 63;
+                    result |= (b & 0x1f) << shift;
+                    shift += 5;
+                } while (b >= 0x20);
+                let dlat = ((result & 1) ? ~(result >> 1) : (result >> 1));
+                lat += dlat;
+                
+                shift = 0, result = 0;
+                do {
+                    b = encoded.charCodeAt(index++) - 63;
+                    result |= (b & 0x1f) << shift;
+                    shift += 5;
+                } while (b >= 0x20);
+                let dlng = ((result & 1) ? ~(result >> 1) : (result >> 1));
+                lng += dlng;
+                
+                points.push([lat / 1e5, lng / 1e5]);
+            }
+            return points;
+        }
+
+        function stripHtml(html) {
+            if (!html) return '';
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            return temp.textContent || temp.innerText || '';
+        }
+
+        // 3. Fetch route from FastAPI backend
+        async function fetchRoute() {
+            const statusText = document.getElementById('status');
+            const fareEl = document.getElementById('fare');
+            const fareBreakdownEl = document.getElementById('fare_breakdown');
+            const stepsEl = document.getElementById('steps');
+            const selectedMode = document.getElementById('transport_mode').value;
+            statusText.innerText = "Loading...";
+            fareEl.innerText = "Loading...";
+            fareBreakdownEl.innerText = "Loading...";
+            stepsEl.innerHTML = "Loading...";
+
+            // Clear old map layers
+            if (currentPolyline) map.removeLayer(currentPolyline);
+            markers.forEach(m => map.removeLayer(m));
+            markers = [];
+
+            const payload = {
+                orig_lat: parseFloat(document.getElementById('orig_lat').value),
+                orig_lon: parseFloat(document.getElementById('orig_lon').value),
+                dest_lat: parseFloat(document.getElementById('dest_lat').value),
+                dest_lon: parseFloat(document.getElementById('dest_lon').value),
+                transport_mode: selectedMode
+            };
+
+            try {
+                // Update this URL if FastAPI runs on a different port
+                const response = await fetch('http://localhost:8001/api/calculator/public_transport', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                
+                const data = await response.json();
+                const encodedPolyline = data.polyline;
+
+                const fareValue = data.fare_vnd;
+                const currency = data.currency || 'VND';
+                if (typeof fareValue === 'number') {
+                    fareEl.innerText = `${fareValue.toLocaleString()} ${currency}`;
+                } else {
+                    fareEl.innerText = selectedMode === 'public_transport'
+                        ? 'Not published by operator (fallback may be used)'
+                        : 'N/A for this mode';
+                }
+
+                const fareBreakdown = data.fare_breakdown || {};
+                if (selectedMode === 'motorbike' || selectedMode === 'car') {
+                    const fuelPrice = fareBreakdown.fuel_price_vnd_per_liter;
+                    const consumption = fareBreakdown.consumption_l_per_100km;
+                    const liters = fareBreakdown.estimated_liters;
+                    const source = fareBreakdown.fuel_price_source || 'fallback_default';
+                    const reason = fareBreakdown.fuel_price_reason;
+
+                    const baseText = (typeof fuelPrice === 'number' && typeof consumption === 'number')
+                        ? `Fuel: ${fuelPrice.toLocaleString()} VND/L, Consumption: ${consumption} L/100km, Estimated liters: ${liters}`
+                        : 'Fuel-based fare formula used.';
+
+                    fareBreakdownEl.innerText = reason
+                        ? `${baseText}. Source: ${source} (${reason})`
+                        : `${baseText}. Source: ${source}`;
+                } else {
+                    fareBreakdownEl.innerText = 'Transit fare from Google route fare or fallback default fare.';
+                }
+
+                const steps = Array.isArray(data.steps) ? data.steps : [];
+                if (!steps.length) {
+                    stepsEl.innerText = 'No transit steps returned.';
+                } else {
+                    const rendered = steps.map((step, idx) => {
+                        if (step.type === 'TRANSIT') {
+                            return `<div class="step"><b>${idx + 1}.</b> Take <b>${step.vehicle || 'TRANSIT'}</b> line <b>${step.line || 'N/A'}</b> from <b>${step.from_stop || 'Unknown stop'}</b> to <b>${step.to_stop || 'Unknown stop'}</b> (${step.num_stops || 0} stops, ${step.duration_mins || 0} mins)</div>`;
+                        }
+
+                        if (step.type === 'WALKING') {
+                            return `<div class="step"><b>${idx + 1}.</b> Walk ${step.distance_m || 0} m (${step.duration_mins || 0} mins)</div>`;
+                        }
+
+                        const instruction = stripHtml(step.instructions);
+                        return `<div class="step"><b>${idx + 1}.</b> ${step.type || 'STEP'}: ${instruction || 'Continue on route'} (${step.duration_mins || 0} mins)</div>`;
+                    }).join('');
+
+                    stepsEl.innerHTML = rendered;
+                }
+
+                if (!encodedPolyline) {
+                    statusText.innerText = data.success
+                        ? "No polyline returned for this mode."
+                        : `Directions API failed: ${data.error_reason || 'Unknown error'}`;
+                    return;
+                }
+
+                // Decode and draw polyline
+                const decodedPoints = decodePolyline(encodedPolyline);
+                currentPolyline = L.polyline(decodedPoints, {color: 'blue', weight: 5}).addTo(map);
+
+                // Add markers for origin and destination
+                markers.push(L.marker([payload.orig_lat, payload.orig_lon]).addTo(map).bindPopup("Origin"));
+                markers.push(L.marker([payload.dest_lat, payload.dest_lon]).addTo(map).bindPopup("Destination"));
+
+                // Zoom map to fit the route
+                map.fitBounds(currentPolyline.getBounds());
+                
+                statusText.innerText = `Success! ${selectedMode} distance: ${data.distance_km} km, duration: ${data.duration_mins} mins (Google mode: ${data.google_mode_used || 'n/a'})`;
+
+            } catch (error) {
+                console.error("Fetch error:", error);
+                statusText.innerText = "Request failed. Is FastAPI running on port 8001?";
+                fareEl.innerText = '-';
+                fareBreakdownEl.innerText = '-';
+                stepsEl.innerText = 'Request failed.';
+            }
+        }
+    </script>
+</body>
+</html>
