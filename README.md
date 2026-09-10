@@ -11,3 +11,7 @@ npm --prefix frontend run dev
 
 For a complete Render deployment, see DEPLOY_RENDER.md.
 The previous static-only export is preserved under static_showcase.
+
+This is ready-to-deploy version only. For original development repo, please refer to:
+
+https://github.com/osamu-1636/ASEAN-Data-Science-Explorers/
